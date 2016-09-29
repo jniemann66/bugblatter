@@ -1,65 +1,65 @@
  
  body {
-  background-image: url("../images/galaxy.jpg");
+	background-image: url("../images/galaxy.jpg");
  }
  
 .App {
-  text-align: center;
-  
+	text-align: center;
+	
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+	animation: App-logo-spin infinite 20s linear;
+	height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+	background-color: #222;
+	height: 150px;
+	padding: 20px;
+	color: white;
 }
 
 .App-intro {
-  font-size: large;
+	font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+	from { transform: rotate(0deg); }
+	to { transform: rotate(360deg); }
 }
 
 .tbl-scores {
-  margin: 0 auto;
-  width: 50%;
+	margin: 0 auto;
+	width: 50%;
 } 
 
 .score {
-  text-align: left;
-  font-family: "Lucida Console", Monaco, monospace;
+	text-align: left;
+	font-family: "Lucida Console", Monaco, monospace;
 }
 
 .hiscore {
-  text-align: right;
-  font-family: "Lucida Console", Monaco, monospace;
+	text-align: right;
+	font-family: "Lucida Console", Monaco, monospace;
 }
 
 [hidden] { /* just in case browser doesn't support 'hidden' attribute (unlikely) */
-  display: none; 
+	display: none; 
 }
 
 canvas {
-    padding: 0;
-    margin: auto;
-    display: block;
+		padding: 0;
+		margin: auto;
+		display: block;
 
-    /*
-    width: 800px;
-    height: 600px;
-    */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+		/*
+		width: 800px;
+		height: 600px;
+		*/
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
 }

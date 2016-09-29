@@ -14,21 +14,21 @@ export default class SpitballCollection {
 		this.bugMargin = 10;
 		this.maxBugs = 4; 
 		this.spitballRadius = 15;
-    this.maxDistance = 245;
+		this.maxDistance = 245;
 
-    this._initStartPositions();
+		this._initStartPositions();
 
 		this.spitballLength = 28;
 		this.spitballs = [];
 		this._loadImages();
 	}
 
-  _initStartPositions() {
-    this.spitballNstartpos = {x: this.centerX-this.spitballRadius, y: this.bugMargin};
-    this.spitballEstartpos = {x: this.fieldWidth - 2 * this.spitballRadius  - this.bugMargin, y: this.centerY - this.spitballRadius};
-    this.spitballSstartpos = {x: this.centerX - this.spitballRadius, y: this.fieldHeight - 2 * this.spitballRadius - this.bugMargin};
-    this.spitballWstartpos = {x: this.bugMargin, y: this.centerY - this.spitballRadius};
-  }
+	_initStartPositions() {
+		this.spitballNstartpos = {x: this.centerX-this.spitballRadius, y: this.bugMargin};
+		this.spitballEstartpos = {x: this.fieldWidth - 2 * this.spitballRadius  - this.bugMargin, y: this.centerY - this.spitballRadius};
+		this.spitballSstartpos = {x: this.centerX - this.spitballRadius, y: this.fieldHeight - 2 * this.spitballRadius - this.bugMargin};
+		this.spitballWstartpos = {x: this.bugMargin, y: this.centerY - this.spitballRadius};
+	}
 
 	_loadImages() {
 		this.spitballN = new Image();
@@ -58,7 +58,7 @@ export default class SpitballCollection {
 			
 			if(spitball.ready) {  
 				switch(spitball.direction){
-           case 'N':
+					 case 'N':
 						ctx.drawImage(this.spitballN, 
 							this.spitballNstartpos.x, 
 							this.spitballNstartpos.y + spitball.position);
@@ -77,8 +77,8 @@ export default class SpitballCollection {
 						ctx.drawImage(this.spitballW,
 							this.spitballWstartpos.x + spitball.position,
 							this.spitballWstartpos.y);
-            break;
-          default:
+						break;
+					default:
 				}
 			}
 		}

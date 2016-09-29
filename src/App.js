@@ -251,7 +251,7 @@ class App extends Component {
 				zone = 'W';
 			} else {
 				zone = 'S';
-			}	
+			}
 		}
 
 //		// console.log(zone);
@@ -407,7 +407,7 @@ class App extends Component {
 //	this.dragonfly.setPath(120,60,-0.2,320); // vertical ellipse (difficulty 1)
 //		this.dragonfly.setPath(120,80,-0.2,600); // 3-leaf clover (difficulty 3, pretty !)
 //	this.dragonfly.setPath(96,15,2,300); // flowery orbit (difficulty 1)
-  
+	
 //		this.dragonfly.setPath(96,32,0.3,400); // guitar-pick  orbit (difficulty 3)
 	
 	//	this.dragonfly.setPath(11,44,2,30); // weird circular orbit (difficulty 3)

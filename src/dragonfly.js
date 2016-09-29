@@ -76,12 +76,12 @@ export default class Dragonfly {
 /*
 		// show hitZone:
 		ctx.beginPath();
-      	ctx.arc(0,0, 
-		  10, 0, TAU, false);
-    
-      	ctx.lineWidth = 2;
-      	ctx.strokeStyle = '#330000';
-      	ctx.stroke();
+				ctx.arc(0,0, 
+			10, 0, TAU, false);
+		
+				ctx.lineWidth = 2;
+				ctx.strokeStyle = '#330000';
+				ctx.stroke();
 */
 		ctx.restore();
 	}
