@@ -556,24 +556,8 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{/*  
-				<table style={{"width" : this.state.canvasWidth}} className="tbl-scores">
-					<tbody>
-						<tr>
-							<td className="tbl-score">
-							 <p className="score">SCORE: {this.state.score}</p>
-							</td>
-							<td className="tbl-hiscore">
-							 <p className="hiscore">HI-SCORE: {this.state.highScore}</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			 */}
-				<canvas ref="canvas" width={this.state.canvasWidth} height={this.state.canvasHeight}/>	
-			{/*	<p>Bases: {this.state.bases}</p> */}	
+				<canvas ref="canvas" width={this.state.canvasWidth} height={this.state.canvasHeight}/>
 			</div>
-			
 		);
 	}
 
