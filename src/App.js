@@ -400,7 +400,7 @@ class App extends Component {
 		
 		this.clearEnemies();
 		this.dragonfly.hidden = true;
-		this.dragonfly.selectFlightPathByName('guitar-pick');
+		this.dragonfly.selectFlightPathByName('box');
 	}
 
 	endGame() {
