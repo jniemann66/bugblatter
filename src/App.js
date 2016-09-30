@@ -29,6 +29,7 @@ class App extends Component {
 			bases: 3,
 			score: 0,
 			highScore: 0,
+			level: 1,
 			inGame: false,
 			paused: false,
 			laserNTemp: 0,
@@ -39,7 +40,7 @@ class App extends Component {
 			nextWeevilToSpit: 0,
 			wavesCleared: 0,
 		}
-
+		
 		this.weevilCollection = null;
 		this.dragonfly = null;
 		this.spitballs = null;
@@ -66,12 +67,9 @@ class App extends Component {
 		this.spitballCollection = new SpitballCollection(context, this.fieldWidth, this.fieldHeight);
 		this.explosionCollection = new ExplosionCollection(context, this.fieldWidth, this.fieldHeight);
 
-
-
 		this.dragonfly.hidden = true;
 
 		// register event listeners:
-		window.addEventListener('keyup',   this._keyUp.bind(this));
 		window.addEventListener('keydown', this._keyDown.bind(this));
 		window.addEventListener('touchstart', this._touchStart.bind(this));
 		window.addEventListener('mousedown', this._mouseDown.bind(this));
@@ -191,10 +189,6 @@ class App extends Component {
 			if(this.state.readyToPlay)
 				this.startGame();
 		}
-	}
-
-	_keyUp(evt) {
-	 //
 	}
 
 	_touchStart(evt) {
@@ -380,46 +374,33 @@ class App extends Component {
 		let s='SCORE: ' + this.state.score;
 		let hs='HI-SCORE: ' + this.state.highScore;
 		let b='BASES: ' + this.state.bases;
+		let l='LEVEL: ' + this.state.level;
 		let hsWidth = ctx.measureText(hs).width;
+		let lWidth = ctx.measureText(l).width;
 		ctx.fillText(s, 10, 20);
 		ctx.fillText(hs, this.state.fieldWidth - 10 - hsWidth, 20);
 		ctx.fillText(b, 10, this.state.fieldHeight - 10);
+		ctx.fillText(l, this.state.fieldWidth - 10 - lWidth,  this.state.fieldHeight - 10);
 		ctx.restore();
 	}
 
 	// Game state manipulation ////
 
 	startGame() {
-		 this.setState({
+		this.setState({
 			bases: 3,
 			score: 0,
+			level: 1,
 			inGame: true,
 			laserNTemp: 0,
 			laserETemp: 0,
 			laserSTemp: 0,
 			laserWTemp: 0,
-		 });
+		});
 		
 		this.clearEnemies();
 		this.dragonfly.hidden = true;
-
-				
-//	this.dragonfly.setPath(120,60,-0.2,320); // vertical ellipse (difficulty 1)
-//		this.dragonfly.setPath(120,80,-0.2,600); // 3-leaf clover (difficulty 3, pretty !)
-//	this.dragonfly.setPath(96,15,2,300); // flowery orbit (difficulty 1)
-	
-//		this.dragonfly.setPath(96,32,0.3,400); // guitar-pick  orbit (difficulty 3)
-	
-	//	this.dragonfly.setPath(11,44,2,30); // weird circular orbit (difficulty 3)
-	//	this.dragonfly.setPath(96,36,0.7,380); // 8-point star (difficulty 3)
-
-// this.dragonfly.setPath(120,24,1.1,300,Math.PI / 4); // pentagon (difficulty 4)
-
-		//this.dragonfly.setPath(96,32,-1.2,380, Math.PI / 6); // Trillium Swoop
-		this.dragonfly.setPath(96,24,1.3,320,Math.PI/2); // box (difficulty 6, pretty)
-//	 this.dragonfly.setPath(96,48,1.8,600); // flyby orbit (difficulty 10)
-//	this.dragonfly.setPath(96,21,2.7,700); // high-speed Swoop (difficulty 11)
-
+		this.dragonfly.selectFlightPathByName('guitar-pick');
 	}
 
 	endGame() {
@@ -536,10 +517,10 @@ class App extends Component {
 						this.setState({highScore: this.state.score});
 					this.spitballCollection.cancelSpitballs(targetDirection);
 					if(this.weevilCollection.allDead()){
-						++this.state.wavesCleared;
+						this.setState({wavesCleared: this.state.wavesCleared + 1});
 						// console.log('waves cleared:', this.state.wavesCleared);
-						if(	this.state.wavesCleared >= 4){
-							this.setState({wavesCleared : 0});
+						if(	this.state.wavesCleared >= 5){
+							this.setState({wavesCleared: 0});
 							this.dragonfly.hidden = false;
 						}
 					}
@@ -553,7 +534,7 @@ class App extends Component {
 			this.dragonfly.hidden = true;
 			let dragonflyCoordinates = this.dragonfly.getPosition();
 			this.explosionCollection.add(dragonflyCoordinates.x, dragonflyCoordinates.y, 2.0);
-			this.setState({score: this.state.score + 2000 /*, paused: true*/});
+			this.setState({score: this.state.score + 2000, level: this.state.level + 1, wavesCleared: 0});
 			if(this.state.score >= this.state.highScore)
 				this.setState({highScore: this.state.score});
 		}
