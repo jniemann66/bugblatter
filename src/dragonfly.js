@@ -16,7 +16,6 @@ const flightPaths = [
 	{M: 96, N: 21, penRadius: 2.7, drawingRadius: 700, tilt: 0, name: 'fast-swoop', difficulty: 11}
 ];
 
-
 export default class Dragonfly {
 	constructor(context, fieldWidth=640, fieldHeight=640) {
 		this.context = context;
