@@ -75,7 +75,7 @@ class App extends Component {
 		window.addEventListener('mousedown', this._mouseDown.bind(this));
 		window.addEventListener('resize', this._resize.bind(this));
 
-		setInterval(this._update.bind(this),16.7); // 16.7ms = 60fps
+		setInterval(this._update.bind(this),1000 / this.props.framesPerSecond); // 60fps = 16.67ms
 	}
 	
 	fitToViewport(context, scaleUp=false) {
@@ -568,5 +568,8 @@ class App extends Component {
 		window.removeEventListener('keydown', this.handleKeys);
 	}
 }
+
+App.propTypes = {framesPerSecond: React.PropTypes.number};
+App.defaultProps = {framesPerSecond: 60};
 
 export default App;

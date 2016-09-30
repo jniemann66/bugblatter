@@ -83,7 +83,7 @@ export default class ExplosionCollection {
 		const ctx = this.context;
 		ctx.save();
 		
-		numExplosions = explosions.length;
+		let numExplosions = this.explosions.length;
 		for(let i=0; i < numExplosions; i++){
 
 			let explosion = this.explosions[i];
