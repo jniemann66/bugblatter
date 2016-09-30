@@ -49,7 +49,7 @@ const blackbodyColors = [ // blackbody radiation colors for 1000-10000K
 	'#ccdbff',
 ];
 
-const TAU = 2 * Math.PI;
+const TWOPI = 2 * Math.PI;
 
 export default class ExplosionCollection {
 	 constructor(context, fieldWidth=640, fieldHeight=640) {
@@ -83,24 +83,19 @@ export default class ExplosionCollection {
 		const ctx = this.context;
 		ctx.save();
 		
-
-		for(let i=0; i<this.explosions.length; i++){
+		numExplosions = explosions.length;
+		for(let i=0; i < numExplosions; i++){
 
 			let explosion = this.explosions[i];
 			let radius = explosion.age;
 			let color = blackbodyColors[this.maxColor - explosion.age];
 
-
 			ctx.beginPath();
-			ctx.arc(explosion.x, explosion.y, radius * explosion.scale, 0, TAU, false);
+			ctx.arc(explosion.x, explosion.y, radius * explosion.scale, 0, TWOPI, false);
 			ctx.fillStyle =color;
 			ctx.globalAlpha = (this.maxAge-explosion.age) / explosion.age;
 			ctx.fill();
-			/*
-			ctx.lineWidth = 5;
-			ctx.strokeStyle = '#003300';
-			ctx.stroke();
-			*/
+
 		}
 		ctx.restore();
 	}

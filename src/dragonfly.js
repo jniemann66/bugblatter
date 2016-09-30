@@ -1,6 +1,6 @@
 import ImgFile from '../images/dragonfly-bright.png';
 
-const TAU = 2 * Math.PI;
+const TWOPI = 2 * Math.PI;
 
 const flightPaths = [
 	{M: 120, N: 60, penRadius: -0.2, drawingRadius: 320, tilt: 0, name: 'vertical-ellipse', difficulty: 1},
@@ -49,11 +49,11 @@ export default class Dragonfly {
 		const cy=this.fieldHeight / 2;
 		this.path = [];
 		let gearRatio = N / M;
-		let inc = (TAU / this.sequenceLength);
+		let inc = (TWOPI / this.sequenceLength);
 		
 		let lastX = (1 - gearRatio) + penRadius * gearRatio;		let lastY = 0;
 		
-		for (let t = 0; t < TAU;  t += inc){
+		for (let t = 0; t < TWOPI;  t += inc) {
 			let x = (1 - gearRatio) * Math.cos(tilt + N * t) + penRadius * (gearRatio) * Math.cos (tilt + (M - N) * t);
 			let y = (1 - gearRatio) * Math.sin(tilt + N * t) - penRadius * (gearRatio) * Math.sin (tilt + (M - N) * t);
 			let theta = -Math.PI/2 - Math.atan2(y-lastY, x-lastX);
@@ -98,7 +98,7 @@ export default class Dragonfly {
 		// show hitZone:
 		ctx.beginPath();
 				ctx.arc(0,0, 
-			10, 0, TAU, false);
+			10, 0, TWOPI, false);
 		
 				ctx.lineWidth = 2;
 				ctx.strokeStyle = '#330000';
