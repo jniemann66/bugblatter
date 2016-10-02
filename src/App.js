@@ -80,7 +80,7 @@ class App extends Component {
 	}
 	
 	shouldComponentUpdate(nextProps, nextState) {
-		if(nextState.canvasWidth != this.state.canvasWidth || nextState.canvasHeight != this.state.canvasHeight) {
+		if(nextState.canvasWidth !== this.state.canvasWidth || nextState.canvasHeight !== this.state.canvasHeight) {
 			return true;
 		} else {
 			return false;
@@ -455,6 +455,12 @@ class App extends Component {
 		this.explosionCollection.clear();
 	}
 
+	bumpScore(amount) {
+		this.setState({score: this.state.score + amount});
+			if(this.state.score >= this.state.highScore)
+				this.setState({highScore: this.state.score});
+	}
+
 	// update functions ////
 	
 	launchNewSpitballs() {
@@ -514,7 +520,7 @@ class App extends Component {
 						laserHitPosition = spitballPos;
 						spitballHitIndex = i;
 						spitballHit = true;
-					}      
+					}
 				}
 			}
 		}
@@ -522,9 +528,7 @@ class App extends Component {
 		if(spitballHit) {
 			this.spitballCollection.spitballs.splice(spitballHitIndex,1);
 			this.laserBase.drawLaserBeam(targetDirection, laserHitPosition+this.spitballCollection.spitballLength);
-			this.setState({score: this.state.score + 200});
-			if(this.state.score >= this.state.highScore)
-				this.setState({highScore: this.state.score});
+			this.bumpScore(200);
 			return;
 		}
 
@@ -534,11 +538,9 @@ class App extends Component {
 				if(weevilOfInterest.ready && weevilOfInterest.direction === targetDirection) {
 					this.laserBase.drawLaserBeam(targetDirection, this.weevilCollection.weevilRadius + this.weevilCollection.weevilMargin);
 					this.weevilCollection.weevils.splice(i,1);
-					this.setState({score: this.state.score + 750});
+					this.bumpScore(750);
 					let weevilCoordinates = this.weevilCollection.getWeevilPosition(targetDirection);
 					this.explosionCollection.add(weevilCoordinates.x ,weevilCoordinates.y, 1.2);
-					if(this.state.score >= this.state.highScore)
-						this.setState({highScore: this.state.score});
 					this.spitballCollection.cancelSpitballs(targetDirection);
 					if(this.weevilCollection.allDead()){
 						this.setState({wavesCleared: this.state.wavesCleared + 1});
@@ -558,9 +560,7 @@ class App extends Component {
 			this.dragonfly.hidden = true;
 			let dragonflyCoordinates = this.dragonfly.getPosition();
 			this.explosionCollection.add(dragonflyCoordinates.x, dragonflyCoordinates.y, 2.0);
-			this.setState({score: this.state.score + 2000, level: this.state.level + 1, wavesCleared: 0});
-			if(this.state.score >= this.state.highScore)
-				this.setState({highScore: this.state.score});
+			this.bumpScore(2000);
 		}
 
 		this.laserBase.drawLaserBeam(targetDirection,0); // miss
