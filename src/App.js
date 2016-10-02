@@ -560,6 +560,7 @@ class App extends Component {
 			this.dragonfly.hidden = true;
 			let dragonflyCoordinates = this.dragonfly.getPosition();
 			this.explosionCollection.add(dragonflyCoordinates.x, dragonflyCoordinates.y, 2.0);
+			this.setState({level: this.state.level + 1, wavesCleared: 0});
 			this.bumpScore(2000);
 		}
 
