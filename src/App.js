@@ -44,10 +44,11 @@ class App extends Component {
 		this.weevilCollection = null;
 		this.dragonfly = null;
 		this.spitballs = null;
-		this.explosionCollection = null;  
+		this.explosionCollection = null;
+		this.animationTimer = null;
 	}
 
-	// Mounting Events ////
+	// Lifecycle Events ////
 
 	componentWillMount() {
 
@@ -75,44 +76,24 @@ class App extends Component {
 		window.addEventListener('mousedown', this._mouseDown.bind(this));
 		window.addEventListener('resize', this._resize.bind(this));
 
-		setInterval(this._update.bind(this),1000 / this.props.framesPerSecond); // 60fps = 16.67ms
+		this.animationTimer = setInterval(this._update.bind(this),1000 / this.props.framesPerSecond); // 60fps = 16.67ms
 	}
 	
-	fitToViewport(context, percentOfViewport = 100) {
-		let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-		let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-			
-		let scaleX = w / this.state.fieldWidth;
-		let scaleY = h / this.state.fieldHeight;
-		let scale = Math.min(scaleX, scaleY) * (percentOfViewport / 100.0);
-
-		// determine new canvas dimensions:
-		let newCanvasWidth = Math.floor(this.state.fieldWidth * scale);
-		let newCanvasHeight = Math.floor(this.state.fieldHeight * scale);
-		
-		// determine offsets for centering the playfield:
-		let offsetTop = 0.5 * (newCanvasHeight - this.state.fieldHeight * scale);
-		let offsetLeft = 0.5 * (newCanvasWidth - this.state.fieldWidth * scale);
-
-		this.setState({
-			offsetLeft: offsetLeft,
-			offsetTop: offsetTop,
-			canvasWidth: newCanvasWidth,	// width of canvas
-			canvasHeight: newCanvasHeight,	// height of canvas
-			scale: scale,				// scale of game playfield (canvas pixel : game pixel ratio)
-		},()=>{
-			context.setTransform(1, 0, 0, 1, 0, 0); // reset whatever previous transforms were in-place
-			context.scale(scale, scale);	// set scale	
-			context.translate(offsetLeft, offsetTop); // position playfield in the center of canvas
-		});
-	}
-
 	shouldComponentUpdate(nextProps, nextState) {
 		if(nextState.canvasWidth != this.state.canvasWidth || nextState.canvasHeight != this.state.canvasHeight) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('keydown', this._keyDown.bind(this));
+		window.removeEventListener('touchstart', this._touchStart.bind(this));
+		window.removeEventListener('mousedown', this._mouseDown.bind(this));
+		window.removeEventListener('resize', this._resize.bind(this));
+
+		clearInterval(this.animationTimer);
 	}
 
 	// Event Handling ////
@@ -336,6 +317,35 @@ class App extends Component {
 	}
 
 	// Drawing Functions ////
+
+	fitToViewport(context, percentOfViewport = 100) {
+		let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+		let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+			
+		let scaleX = w / this.state.fieldWidth;
+		let scaleY = h / this.state.fieldHeight;
+		let scale = Math.min(scaleX, scaleY) * (percentOfViewport / 100.0);
+
+		// determine new canvas dimensions:
+		let newCanvasWidth = Math.floor(this.state.fieldWidth * scale);
+		let newCanvasHeight = Math.floor(this.state.fieldHeight * scale);
+		
+		// determine offsets for centering the playfield:
+		let offsetTop = 0.5 * (newCanvasHeight - this.state.fieldHeight * scale);
+		let offsetLeft = 0.5 * (newCanvasWidth - this.state.fieldWidth * scale);
+
+		this.setState({
+			offsetLeft: offsetLeft,
+			offsetTop: offsetTop,
+			canvasWidth: newCanvasWidth,	// width of canvas
+			canvasHeight: newCanvasHeight,	// height of canvas
+			scale: scale,				// scale of game playfield (canvas pixel : game pixel ratio)
+		},()=>{
+			context.setTransform(1, 0, 0, 1, 0, 0); // reset whatever previous transforms were in-place
+			context.scale(scale, scale);	// set scale	
+			context.translate(offsetLeft, offsetTop); // position playfield in the center of canvas
+		});
+	}
 
 	clearPlayField(color="#000000") {
 		const ctx = this.state.context;
@@ -574,14 +584,9 @@ class App extends Component {
 			</div>
 		);
 	}
-
-	// UNMOUNTING EVENTS ////
-
-	componentWillUnmount() {
-		window.removeEventListener('keyup', this.handleKeys);
-		window.removeEventListener('keydown', this.handleKeys);
-	}
 }
+
+// props
 
 App.propTypes = {framesPerSecond: React.PropTypes.number};
 App.defaultProps = {framesPerSecond: 60};
