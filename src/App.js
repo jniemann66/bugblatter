@@ -78,35 +78,40 @@ class App extends Component {
 		setInterval(this._update.bind(this),1000 / this.props.framesPerSecond); // 60fps = 16.67ms
 	}
 	
-	fitToViewport(context, scaleUp=false) {
+	fitToViewport(context, percentOfViewport = 100) {
 		let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 		let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 			
 		let scaleX = w / this.state.fieldWidth;
 		let scaleY = h / this.state.fieldHeight;
-		let scale = Math.min(scaleX, scaleY);
-		
-		if((scale<1) || scaleUp) {
+		let scale = Math.min(scaleX, scaleY) * (percentOfViewport / 100.0);
 
-			// determine new canvas dimensions:
-			let newCanvasWidth = Math.floor(this.state.fieldWidth * scale);
-			let newCanvasHeight = Math.floor(this.state.fieldHeight * scale);
-			
-			// determine offsets for centering the playfield:
-			let offsetTop = 0.5 * (newCanvasHeight - this.state.fieldHeight * scale);
-			let offsetLeft = 0.5 * (newCanvasWidth - this.state.fieldWidth * scale);
-	
-			this.setState({
-				offsetLeft: offsetLeft,
-				offsetTop: offsetTop,
-				canvasWidth: newCanvasWidth,	// width of canvas
-				canvasHeight: newCanvasHeight,	// height of canvas
-				scale: scale,				// scale of game playfield (canvas pixel : game pixel ratio)
-			},()=>{
-				context.setTransform(1, 0, 0, 1, 0, 0); // reset whatever previous transforms were in-place
-				context.scale(scale, scale);	// set scale	
-				context.translate(offsetLeft, offsetTop); // position playfield in the center of canvas
-			});
+		// determine new canvas dimensions:
+		let newCanvasWidth = Math.floor(this.state.fieldWidth * scale);
+		let newCanvasHeight = Math.floor(this.state.fieldHeight * scale);
+		
+		// determine offsets for centering the playfield:
+		let offsetTop = 0.5 * (newCanvasHeight - this.state.fieldHeight * scale);
+		let offsetLeft = 0.5 * (newCanvasWidth - this.state.fieldWidth * scale);
+
+		this.setState({
+			offsetLeft: offsetLeft,
+			offsetTop: offsetTop,
+			canvasWidth: newCanvasWidth,	// width of canvas
+			canvasHeight: newCanvasHeight,	// height of canvas
+			scale: scale,				// scale of game playfield (canvas pixel : game pixel ratio)
+		},()=>{
+			context.setTransform(1, 0, 0, 1, 0, 0); // reset whatever previous transforms were in-place
+			context.scale(scale, scale);	// set scale	
+			context.translate(offsetLeft, offsetTop); // position playfield in the center of canvas
+		});
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		if(nextState.canvasWidth != this.state.canvasWidth || nextState.canvasHeight != this.state.canvasHeight) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -122,12 +127,7 @@ class App extends Component {
 			this.clearPlayField();
 
 			// draw
-			this.laserBase.drawNext();
-			this.weevilCollection.drawNext();
-			this.spitballCollection.drawNext();
-			this.dragonfly.drawNext();
-			this.explosionCollection.drawNext();
-			this.drawScores();
+			this.drawAll();
 
 			// update
 			this.weevilCollection.update();
@@ -327,7 +327,12 @@ class App extends Component {
 	}
 	
 	_resize(evt) {
-		this.fitToViewport(this.state.context);
+		this.fitToViewport(this.state.context, 100 /* percentOfViewport */);
+		if(this.state.paused) {
+			this.clearPlayField();
+			this.drawAll();
+			this.drawMessage('Paused');
+		}
 	}
 
 	// Drawing Functions ////
@@ -340,6 +345,15 @@ class App extends Component {
 		ctx.setTransform(1, 0, 0, 1, 0, 0);
 		ctx.fillRect(0,0,this.state.canvasWidth,this.state.canvasHeight);
 		ctx.restore();
+	}
+	
+	drawAll() {
+		this.laserBase.drawNext();
+		this.weevilCollection.drawNext();
+		this.spitballCollection.drawNext();
+		this.dragonfly.drawNext();
+		this.explosionCollection.drawNext();
+		this.drawScores();
 	}
 
 	drawStartScreen() {
