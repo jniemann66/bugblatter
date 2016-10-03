@@ -44,8 +44,8 @@ class App extends Component {
 		
 		this.weevilCollection = null;
 		this.dragonfly = null;
-		this.spitballs = null;
-		this.dragonballs = null;
+		this.spitballCollection = null;
+		this.dragonballCollection = null;
 		this.explosionCollection = null;
 		this.animationTimer = null;
 	}
@@ -181,7 +181,9 @@ class App extends Component {
 					let x = this.dragonfly.getPosition().x;
 					let y = this.dragonfly.getPosition().y;
 					let r = this.dragonfly.getPosition().r;
-					this.dragonballCollection.dragonBalls.push({x: x, y: y, vx: 0.3, vy: 0.3});
+					let vx = 2 * Math.cos(-r-Math.PI/2);
+					let vy = 2 * Math.sin(-r-Math.PI/2);
+					this.dragonballCollection.dragonBalls.push({x: x, y: y, vx: vx, vy: vy});
 
 					// test
 					break;
@@ -535,6 +537,17 @@ class App extends Component {
 		let spitballHit = false;
 		let spitballHitIndex = 0;
 		
+		if(this.dragonballCollection.dragonBalls.length !== 0) {
+			for(let i=this.dragonballCollection.dragonBalls.length-1; i>=0; i--) {
+				let dragonBall = this.dragonballCollection.dragonBalls[i];
+				if(this.dragonballCollection.isHit(i, targetDirection)) {
+						this.explosionCollection.add(dragonBall.x, dragonBall.y, 3.0);
+						this.dragonballCollection.dragonBalls.splice(i,1);
+						this.bumpScore(100);
+				}
+			} 
+		}
+
 		if(this.spitballCollection.spitballs.length !== 0) { // check for spitball collisions
 			for(let i=0; i<this.spitballCollection.spitballs.length; i++) {
 				if(this.spitballCollection.spitballs[i].ready && this.spitballCollection.spitballs[i].direction === targetDirection) {

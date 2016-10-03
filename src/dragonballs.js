@@ -7,7 +7,7 @@ export default class DragonBallCollection {
 		this.fieldHeight = fieldHeight;
 		this.centerX = fieldWidth / 2;
 		this.centerY = fieldWidth / 2;
-		this.baseRadius = 60;
+		this.baseRadius = 20;
 		this.imageLoaded = false;
 		this.Img = new Image();
 		this.Img.onload = () => {
@@ -15,9 +15,8 @@ export default class DragonBallCollection {
 		};
 		this.Img.src = dragonBallImgFile;
 
-		this.attraction = 0.5;
+		this.attraction = 2;
 		this.drag = 0.0001;
-
 
 		this.dragonBalls = [];
 	}
@@ -78,16 +77,12 @@ export default class DragonBallCollection {
 		// acceleration
 	}
 
-	isHit(direction) {
-/*
-		if (this.hidden)
-			return false;
-		
-		const x = this.path[this.animationFrame].x;
-		const y = this.path[this.animationFrame].y;
-		const cx = this.fieldWidth / 2;
-		const cy = this.fieldHeight / 2;
-		const hitRadius = 10;
+	isHit(index, direction) {
+		const x = this.dragonBalls[index].x;
+		const y = this.dragonBalls[index].y;
+		const cx = this.centerX;
+		const cy = this.centerY;
+		const hitRadius = this.Img.width;
 
 		switch(direction) {
 			case 'N':
@@ -118,20 +113,8 @@ export default class DragonBallCollection {
 				break;
 		}
 		return false;
-
-*/
-
 	}
 
-
-/*
-	getPosition() {
-		return({
-			x: this.path[this.animationFrame].x,
-			y: this.path[this.animationFrame].y
-		});
-	}
-*/
 	clear() {
 		this.dragonBalls = [];
 	}
