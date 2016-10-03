@@ -527,7 +527,7 @@ class App extends Component {
 				if(this.dragonballCollection.isHit(i, targetDirection)) {
 						this.explosionCollection.add(dragonBall.x, dragonBall.y, 3.0);
 						this.dragonballCollection.dragonBalls.splice(i,1);
-						this.bumpScore(100);
+						this.bumpScore(400);
 				}
 			} 
 		}
