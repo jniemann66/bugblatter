@@ -152,7 +152,8 @@ export default class Dragonfly {
 	getPosition() {
 		return({
 			x: this.path[this.animationFrame].x,
-			y: this.path[this.animationFrame].y
+			y: this.path[this.animationFrame].y,
+			r: this.path[this.animationFrame].r
 		});
 	}
 

@@ -5,13 +5,19 @@ export default class DragonBallCollection {
 		this.context = context;
 		this.fieldWidth = fieldWidth;
 		this.fieldHeight = fieldHeight;
+		this.centerX = fieldWidth / 2;
+		this.centerY = fieldWidth / 2;
+		this.baseRadius = 60;
 		this.imageLoaded = false;
 		this.Img = new Image();
 		this.Img.onload = () => {
 			this.imageLoaded = true; 
 		};
 		this.Img.src = dragonBallImgFile;
-		this.hidden = true;
+
+		this.attraction = 0.5;
+		this.drag = 0.0001;
+
 
 		this.dragonBalls = [];
 	}
@@ -26,8 +32,6 @@ export default class DragonBallCollection {
 		
 		ctx.save();
 		ctx.globalAlpha = 0.8;
-		
-		console.log(dragonBalls.length);
 
 		for(let i = 0; i < dragonBalls.length; ++i) {
 			let dragonBall = dragonBalls[i];
@@ -38,9 +42,39 @@ export default class DragonBallCollection {
 		ctx.restore();
 	}
 
-	update() {
-		// displacement
-		// velocity
+	update(onHit) {
+		let dragonBalls = this.dragonBalls;
+
+		for(let i = dragonBalls.length-1; i >= 0; --i) {
+			let dragonBall = dragonBalls[i];
+
+			// update displacement:
+			dragonBall.x += dragonBall.vx;
+			dragonBall.y += dragonBall.vy;
+
+			// check for collision with base:
+
+			if(
+				(dragonBall.x > (this.centerX - this.baseRadius)) &&
+				(dragonBall.x < (this.centerX + this.baseRadius)) &&
+				(dragonBall.y > (this.centerY - this.baseRadius)) &&
+				(dragonBall.y < (this.centerY + this.baseRadius))
+				) {
+
+					onHit(dragonBall.x-this.Img.width, dragonBall.y-this.Img.height);
+
+					dragonBalls.splice(i,1);
+			}
+
+			// update velocity
+			let dx = this.centerX - dragonBall.x;
+			let dy = this.centerY - dragonBall.y;
+			let d2 = Math.pow(dx,2) + Math.pow(dy,2);
+
+			dragonBall.vx = dragonBall.vx * (1 - this.drag) + this.attraction * dx / d2;
+			dragonBall.vy = dragonBall.vy * (1 - this.drag) + this.attraction * dy / d2;
+		}
+
 		// acceleration
 	}
 
@@ -98,5 +132,7 @@ export default class DragonBallCollection {
 		});
 	}
 */
-
+	clear() {
+		this.dragonBalls = [];
+	}
 };

@@ -117,7 +117,7 @@ class App extends Component {
 			this.weevilCollection.update();
 			this.launchNewSpitballs();
 
-			this.spitballCollection.update(()=>{ /* onHit */
+			this.spitballCollection.update(() => { /* onHit */
 				this.clearEnemies();
 				this.clearPlayField('#ff0000'); // red flash
 				this.setState({bases: this.state.bases-1});
@@ -125,9 +125,22 @@ class App extends Component {
 					this.endGame();
 			});
 
-			this.explosionCollection.update();
+			this.dragonballCollection.update((x,y) => { /* onHit */
+				
+				this.explosionCollection.add(x, y, 1.0);
+				setTimeout(()=>{
+					this.clearPlayField('#ff0000'); // red flash
+					this.setState({bases: this.state.bases-1});
+					this.clearEnemies();
+					if(this.state.bases <= 0)
+						this.endGame();
+				},1000);
+			
+			});
+
 			this.coolLasers();
 			this.dragonfly.update();
+			this.explosionCollection.update();
 
 		} else {
 			if(this.state.readyToPlay){
@@ -165,8 +178,11 @@ class App extends Component {
 					this.togglePause();
 					break;
 				case 't':
-					this.dragonballCollection.dragonBalls.push({x: 640 * Math.random(), y: 640 * Math.random()});
-					this.dragonballCollection.drawNext();
+					let x = this.dragonfly.getPosition().x;
+					let y = this.dragonfly.getPosition().y;
+					let r = this.dragonfly.getPosition().r;
+					this.dragonballCollection.dragonBalls.push({x: x, y: y, vx: 0.3, vy: 0.3});
+
 					// test
 					break;
 				default:
@@ -363,6 +379,7 @@ class App extends Component {
 	}
 	
 	drawAll() {
+		this.dragonballCollection.drawNext();
 		this.laserBase.drawNext();
 		this.weevilCollection.drawNext();
 		this.spitballCollection.drawNext();
@@ -458,6 +475,7 @@ class App extends Component {
 		this.weevilCollection.weevils = [];
 		this.spitballCollection.spitballs = [];
 		this.explosionCollection.clear();
+		this.dragonballCollection.clear();
 	}
 
 	bumpScore(amount) {
