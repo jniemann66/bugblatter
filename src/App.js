@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dragonfly from './dragonfly.js';
+import DragonBallCollection from './dragonballs.js';
 import WeevilCollection from './weevils.js';
 import SpitballCollection from './spitballs.js';
 import LaserBase from './laserbase.js';
@@ -44,6 +45,7 @@ class App extends Component {
 		this.weevilCollection = null;
 		this.dragonfly = null;
 		this.spitballs = null;
+		this.dragonballs = null;
 		this.explosionCollection = null;
 		this.animationTimer = null;
 	}
@@ -67,6 +69,7 @@ class App extends Component {
 		this.weevilCollection = new WeevilCollection(context, this.fieldWidth, this.fieldHeight);
 		this.spitballCollection = new SpitballCollection(context, this.fieldWidth, this.fieldHeight);
 		this.explosionCollection = new ExplosionCollection(context, this.fieldWidth, this.fieldHeight);
+		this.dragonballCollection = new DragonBallCollection(context, this.fieldWidth, this.fieldHeight);
 
 		this.dragonfly.hidden = true;
 
@@ -162,6 +165,8 @@ class App extends Component {
 					this.togglePause();
 					break;
 				case 't':
+					this.dragonballCollection.dragonBalls.push({x: 640 * Math.random(), y: 640 * Math.random()});
+					this.dragonballCollection.drawNext();
 					// test
 					break;
 				default:
