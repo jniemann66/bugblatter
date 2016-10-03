@@ -152,10 +152,6 @@ class App extends Component {
 
 	_keyDown(evt) {
 
-	//	if(!evt)
-	//		var evt = window.event; // for old MSIE browsers that don't pass evt as parameter
-
-
 		if(this.state.inGame){
 			switch(evt.key) {
 				case 'ArrowUp':
@@ -196,9 +192,6 @@ class App extends Component {
 	}
 
 	_touchStart(evt) {
-	
-//		if(!evt)
-//			var evt = window.event; // for old MSIE browsers that don't pass evt as parameter
 
 		evt.preventDefault(); // stop annoying panning / zooming behaviour in browser (IOS)
 		const ctx = this.state.context;
@@ -252,8 +245,6 @@ class App extends Component {
 			}
 		}
 
-//		// console.log(zone);
-
 		if(this.state.inGame) {
 			this.fireLaser(zone);
 		} else {
@@ -264,9 +255,6 @@ class App extends Component {
 	}
 
 	_mouseDown(evt) {
-
-	//	if(!evt)
-	//		var evt = window.event; // for old MSIE browsers that don't pass evt as parameter
 
 		const ctx = this.state.context;
 		const h = ctx.canvas.height;
@@ -319,8 +307,6 @@ class App extends Component {
 			}	
 		}
 
-//		// console.log(zone);
-
 		if(this.state.inGame) {
 			this.fireLaser(zone);
 		} else {
@@ -363,7 +349,7 @@ class App extends Component {
 			canvasWidth: newCanvasWidth,	// width of canvas
 			canvasHeight: newCanvasHeight,	// height of canvas
 			scale: scale,				// scale of game playfield (canvas pixel : game pixel ratio)
-		},()=>{
+		}, () => {
 			context.setTransform(1, 0, 0, 1, 0, 0); // reset whatever previous transforms were in-place
 			context.scale(scale, scale);	// set scale	
 			context.translate(offsetLeft, offsetTop); // position playfield in the center of canvas
