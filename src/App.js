@@ -29,9 +29,9 @@ class App extends Component {
 			laserCooldown: 5,			// number of frames before laser can be fired again
 			dragonballLaunchWait: 5, // number of frames before another dragonball can be launched
 
-			maxSpitballs: 4,
+			maxSpitballs: 8,
 			maxDragonballs: 4,
-			dragonflyNoShootRadius: 80, // determines circular area around base which dragonfly will not shoot (0 = maximum shooting accuracy)
+			dragonflyNoShootRadius: 60, // determines circular area around base which dragonfly will not shoot (0 = maximum shooting accuracy)
 			dragonballLaunchCountdown: 0,
 			bases: 3,
 			score: 0,
@@ -433,7 +433,7 @@ class App extends Component {
 		
 		this.clearEnemies();
 		this.dragonfly.hidden = true;
-		this.dragonfly.selectFlightPathByName('box');
+		this.dragonfly.selectFlightPathByName('3-leaf');
 	}
 
 	endGame() {

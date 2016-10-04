@@ -15,8 +15,8 @@ export default class DragonBallCollection {
 		};
 		this.Img.src = dragonBallImgFile;
 
-		this.attraction = 2;
-		this.drag = 0.0001;
+		this.attraction = 2.5;
+		this.drag = 0.001;
 
 		this.dragonBalls = [];
 	}
