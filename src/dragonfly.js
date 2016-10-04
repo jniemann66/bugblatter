@@ -64,7 +64,7 @@ export default class Dragonfly {
 	}
 
 	drawNext() {
-		if(this.animationFrame >= (this.sequenceLength-1)) {
+		if(this.animationFrame > (this.sequenceLength-1)) {
 			this.animationFrame = 0;
 			console.log('Problem: animation frame beyond bounds');
 		}

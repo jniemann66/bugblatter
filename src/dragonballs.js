@@ -7,7 +7,7 @@ export default class DragonBallCollection {
 		this.fieldHeight = fieldHeight;
 		this.centerX = fieldWidth / 2;
 		this.centerY = fieldWidth / 2;
-		this.baseRadius = 20;
+		this.baseRadius = 30; // controls how far dragonball can penetrate base before considered a hit
 		this.imageLoaded = false;
 		this.Img = new Image();
 		this.Img.onload = () => {
@@ -41,7 +41,7 @@ export default class DragonBallCollection {
 		ctx.restore();
 	}
 
-	update(onHit) {
+	update(onHit) { // onHit will be called when a Dragonball has hit the base.
 		let dragonBalls = this.dragonBalls;
 
 		for(let i = dragonBalls.length-1; i >= 0; --i) {

@@ -5,6 +5,8 @@ import WeevilCollection from './weevils.js';
 import SpitballCollection from './spitballs.js';
 import LaserBase from './laserbase.js';
 import ExplosionCollection from './explosions.js';
+import { testLineCircleIntersection } from './utility.js';
+import { isHeadedTowards } from './utility.js';
 
 import './App.css';
 
@@ -15,18 +17,22 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			context: null,
-			fieldWidth: 640, 	// width of game
-			fieldHeight: 640,	// height of game
-			canvasWidth: 640,	// width of canvas
-			canvasHeight: 640,	// height of canvas
-			offsetLeft: null,		// horizontal start coordinate of playfield relative to canvas
-			offsetTop: null,		// vertical start coordinate of playfield relative to canvas
-			scale: null,				// scale of game playfield (canvas pixel : game pixel ratio)
-			laserOriginRadius: 60,
-			laserCooldown: 5,
+			context: null,				// canvas context (not to be confused with React context)
+			fieldWidth: 640,			// width of game
+			fieldHeight: 640,			// height of game
+			canvasWidth: 640,			// width of canvas
+			canvasHeight: 640,		// height of canvas
+			offsetLeft: null,			// horizontal start coordinate of playfield relative to canvas
+			offsetTop: null,			// vertical start coordinate of playfield relative to canvas
+			scale: null,					// scale of game playfield (canvas pixel : game pixel ratio)
+			laserOriginRadius: 60,// defines the radius at which laser beam emerges from base
+			laserCooldown: 5,			// number of frames before laser can be fired again
+			dragonballLaunchWait: 10, // number of frames before another dragonball can be launched
 
 			maxSpitballs: 4,
+			maxDragonballs: 8,
+			dragonflyNoShootRadius: 80, // determines circular area around base which dragonfly will not shoot (0 = maximum shooting accuracy)
+			dragonballLaunchCountdown: 0,
 			bases: 3,
 			score: 0,
 			highScore: 0,
@@ -116,6 +122,7 @@ class App extends Component {
 			// update
 			this.weevilCollection.update();
 			this.launchNewSpitballs();
+			this.launchNewDragonballs();
 
 			this.spitballCollection.update(() => { /* onHit */
 				this.clearEnemies();
@@ -172,13 +179,6 @@ class App extends Component {
 					this.togglePause();
 					break;
 				case 't':
-					let x = this.dragonfly.getPosition().x;
-					let y = this.dragonfly.getPosition().y;
-					let r = this.dragonfly.getPosition().r;
-					let vx = 2 * Math.cos(-r-Math.PI/2);
-					let vy = 2 * Math.sin(-r-Math.PI/2);
-					this.dragonballCollection.dragonBalls.push({x: x, y: y, vx: vx, vy: vy});
-
 					// test
 					break;
 				default:
@@ -424,6 +424,7 @@ class App extends Component {
 			score: 0,
 			level: 1,
 			inGame: true,
+			dragonballLaunchCountdown: 0,
 			laserNTemp: 0,
 			laserETemp: 0,
 			laserSTemp: 0,
@@ -485,6 +486,50 @@ class App extends Component {
 					this.spitballCollection.launchSpitball(direction);
 				}
 			}
+		}
+	}
+
+	launchNewDragonballs() {
+		// conditionally launch new DragonBalls:
+		if(!this.dragonfly.hidden && 
+			this.state.dragonballLaunchCountdown <= 0 &&
+			this.dragonballCollection.dragonBalls.length < this.state.maxDragonballs) {
+						
+			let x0 = this.dragonfly.getPosition().x;
+			let y0 = this.dragonfly.getPosition().y;
+			let r = this.dragonfly.getPosition().r;
+			let dx = Math.cos(-r-Math.PI/2);
+			let dy = Math.sin(-r-Math.PI/2);
+			let x1 = x0 + dx;
+			let y1 = y0 + dy;
+
+		  if(isHeadedTowards(x0,y0,x1,y1,320,320)) { // dragonfly is facing towards base
+				// to-do: replace the 320's
+
+				let discriminant = testLineCircleIntersection(x0,y0,x1,y1,320,320,this.state.dragonflyNoShootRadius);
+				if(discriminant < 0) { // oustide the No-Shoot Radius; ok to shoot ...
+						let vx = 2 * Math.cos(-r-Math.PI/2);
+						let vy = 2 * Math.sin(-r-Math.PI/2);
+						this.dragonballCollection.dragonBalls.push({x: x0, y: y0, vx: vx, vy: vy});
+						this.setState({dragonballLaunchCountdown: this.state.dragonballLaunchWait});
+				}
+
+				/*
+				// for debugging dragonfly angle:
+				let ctx = this.state.context;
+				ctx.save();
+				ctx.strokeStyle = (discriminant >= 0) ? "#ff0000" : "#00ff00";	
+				ctx.beginPath();
+				ctx.arc(320,320,this.state.dragonflyNoShootRadius,0,2*Math.PI);
+				ctx.moveTo(x0, y0);
+				ctx.lineTo(x0 + 600 * dx, y0 + 600 * dy);
+				ctx.stroke();
+				ctx.restore();
+				//
+				*/
+			}
+		}	else {
+			this.setState({dragonballLaunchCountdown: Math.max(0,this.state.dragonballLaunchCountdown -1)}); // countdown
 		}
 	}
 
