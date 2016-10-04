@@ -12,8 +12,8 @@ const flightPaths = [
 	{M: 120, N: 24, penRadius: 1.1, drawingRadius: 300, tilt: Math.PI / 4, name: 'pentagon', difficulty: 4},
 	{M: 96, N: 32, penRadius: -1.2, drawingRadius: 380, tilt: Math.PI / 6, name: 'trillium-swoop', difficulty: 5},
 	{M: 96, N: 24, penRadius: 1.3, drawingRadius: 320, tilt: Math.PI /2, name: 'box', difficulty: 6}, // pretty
-	{M: 96, N: 48, penRadius: 1.8, drawingRadius: 600, tilt: 0, name: 'flyby-orbit', difficulty: 10},
-	{M: 96, N: 21, penRadius: 2.7, drawingRadius: 700, tilt: 0, name: 'fast-swoop', difficulty: 11}
+	{M: 96, N: 48, penRadius: 1.8, drawingRadius: 400, tilt: 0, name: 'flyby-orbit', difficulty: 10},
+	{M: 96, N: 24, penRadius: 2.7, drawingRadius: 700, tilt: 0, name: 'fast-swoop', difficulty: 11}
 ];
 
 export default class Dragonfly {

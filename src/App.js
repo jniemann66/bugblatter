@@ -186,6 +186,12 @@ class App extends Component {
 					this.togglePause();
 					break;
 				case 't':
+					let newlvl = Number(prompt("Select Level",this.state.level));
+					if(newlvl) {
+						this.setState({level: newlvl});
+						this.loadLevel(newlvl);
+					}
+
 					// test
 					break;
 				default:
@@ -460,9 +466,10 @@ class App extends Component {
 		},100);
 	}
 
-	loadLevel(number) {
-		number = number > levels.length - 1 ? levels.length - 1 : number;
-		this.setState(levels[number], 
+	loadLevel(levelNumber) {
+		levelNumber = levelNumber <=0 ? 0 : levelNumber - 1; // note: index 0 == level 1
+		levelNumber = levelNumber > levels.length - 1 ? levels.length - 1 : levelNumber;
+		this.setState(levels[levelNumber], 
 			() => {console.log(this.state);
 				this.dragonfly.selectFlightPathByName(this.state.dragonflyFlightPath);}
 		);

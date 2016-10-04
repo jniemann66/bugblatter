@@ -1,12 +1,17 @@
-const levels = [
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'trillium-swoop', }, // test-level ???
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'vertical-ellipse', },
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: '3-leaf', },
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'flowery', },
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'guitar-pick', },
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'bacon-beast', },
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'star-8', },
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'pentagon', },
+const levels = [ {	laserCooldown: 5, dragonballLaunchWait: 10, maxSpitballs: 2, maxDragonballs: 2, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'vertical-ellipse', },
+	{	laserCooldown: 5, dragonballLaunchWait: 15, maxSpitballs: 3, maxDragonballs: 3, dragonflyNoShootRadius: 80, dragonflyFlightPath: '3-leaf', },
+	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 3, maxDragonballs: 3, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'flowery', },
+	{	laserCooldown: 5, dragonballLaunchWait: 15, maxSpitballs: 4, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'guitar-pick', },
+	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 5, maxDragonballs: 5, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'bacon-beast', },
+	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 6, maxDragonballs: 6, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'star-8', },
+	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 7, maxDragonballs: 7, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'pentagon', },
+	{	laserCooldown: 5, dragonballLaunchWait: 10, maxSpitballs: 8, maxDragonballs: 8, dragonflyNoShootRadius: 90, dragonflyFlightPath: 'trillium-swoop', },
+	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 8, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'box', },
+	{	laserCooldown: 5, dragonballLaunchWait: 0, maxSpitballs: 8, maxDragonballs: 24, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'flyby-orbit', },
+	{	laserCooldown: 5, dragonballLaunchWait: 2, maxSpitballs: 8, maxDragonballs: 36, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'vertical-ellipse', },
+	{	laserCooldown: 5, dragonballLaunchWait: 2, maxSpitballs: 8, maxDragonballs: 36, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'fast-swoop', },
+
+
 
 
 ]
