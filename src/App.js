@@ -7,6 +7,7 @@ import LaserBase from './laserbase.js';
 import ExplosionCollection from './explosions.js';
 import { testLineCircleIntersection } from './utility.js';
 import { isHeadedTowards } from './utility.js';
+import { levels } from './levels.js';
 
 import './App.css';
 
@@ -17,6 +18,8 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+
+			// global game parameters
 			context: null,				// canvas context (not to be confused with React context)
 			fieldWidth: 640,			// width of game
 			fieldHeight: 640,			// height of game
@@ -26,12 +29,16 @@ class App extends Component {
 			offsetTop: null,			// vertical start coordinate of playfield relative to canvas
 			scale: null,					// scale of game playfield (canvas pixel : game pixel ratio)
 			laserOriginRadius: 60,// defines the radius at which laser beam emerges from base
+
+			// level / difficulty parameters
 			laserCooldown: 5,			// number of frames before laser can be fired again
 			dragonballLaunchWait: 5, // number of frames before another dragonball can be launched
-
 			maxSpitballs: 8,
 			maxDragonballs: 4,
 			dragonflyNoShootRadius: 60, // determines circular area around base which dragonfly will not shoot (0 = maximum shooting accuracy)
+			dragonflyFlightPath: 'bacon-beast',
+
+			// game tracking
 			dragonballLaunchCountdown: 0,
 			bases: 3,
 			score: 0,
@@ -433,7 +440,8 @@ class App extends Component {
 		
 		this.clearEnemies();
 		this.dragonfly.hidden = true;
-		this.dragonfly.selectFlightPathByName('3-leaf');
+
+		this.loadLevel(this.state.level);
 	}
 
 	endGame() {
@@ -450,6 +458,14 @@ class App extends Component {
 			
 			setTimeout(()=>{this.setState({readyToPlay: true})},3000);
 		},100);
+	}
+
+	loadLevel(number) {
+		number = number > levels.length - 1 ? levels.length - 1 : number;
+		this.setState(levels[number], 
+			() => {console.log(this.state);
+				this.dragonfly.selectFlightPathByName(this.state.dragonflyFlightPath);}
+		);
 	}
 
 	togglePause() {
@@ -626,6 +642,7 @@ class App extends Component {
 			let dragonflyCoordinates = this.dragonfly.getPosition();
 			this.explosionCollection.add(dragonflyCoordinates.x, dragonflyCoordinates.y, 2.0);
 			this.setState({level: this.state.level + 1, wavesCleared: 0});
+			this.loadLevel(this.state.level);
 			this.bumpScore(2000);
 		}
 
