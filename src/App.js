@@ -27,10 +27,10 @@ class App extends Component {
 			scale: null,					// scale of game playfield (canvas pixel : game pixel ratio)
 			laserOriginRadius: 60,// defines the radius at which laser beam emerges from base
 			laserCooldown: 5,			// number of frames before laser can be fired again
-			dragonballLaunchWait: 10, // number of frames before another dragonball can be launched
+			dragonballLaunchWait: 5, // number of frames before another dragonball can be launched
 
 			maxSpitballs: 4,
-			maxDragonballs: 8,
+			maxDragonballs: 4,
 			dragonflyNoShootRadius: 80, // determines circular area around base which dragonfly will not shoot (0 = maximum shooting accuracy)
 			dragonballLaunchCountdown: 0,
 			bases: 3,

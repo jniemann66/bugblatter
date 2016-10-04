@@ -59,9 +59,7 @@ export default class DragonBallCollection {
 				(dragonBall.y > (this.centerY - this.baseRadius)) &&
 				(dragonBall.y < (this.centerY + this.baseRadius))
 				) {
-
 					onHit(dragonBall.x-this.Img.width, dragonBall.y-this.Img.height);
-
 					dragonBalls.splice(i,1);
 			}
 
