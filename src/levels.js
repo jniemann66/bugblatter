@@ -12,6 +12,7 @@ const levels = [ {	laserCooldown: 5, dragonballLaunchWait: 10, maxSpitballs: 2, 
 	{	laserCooldown: 5, dragonballLaunchWait: 2, maxSpitballs: 8, maxDragonballs: 36, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'fast-swoop', },
 	{	laserCooldown: 5, dragonballLaunchWait: 15, maxSpitballs: 8, maxDragonballs: 12, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'ninja', },
 	{	laserCooldown: 4, dragonballLaunchWait: 0, maxSpitballs: 8, maxDragonballs: 128, dragonflyNoShootRadius: 80, dragonflyFlightPath: '3-leaf', },
+	{	laserCooldown: 4, dragonballLaunchWait: 2, maxSpitballs: 8, maxDragonballs: 64, dragonflyNoShootRadius: 75, dragonflyFlightPath: 'hex-attack', },
 
 
 
