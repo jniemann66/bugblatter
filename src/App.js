@@ -8,6 +8,7 @@ import ExplosionCollection from './explosions.js';
 import { testLineCircleIntersection } from './utility.js';
 import { isHeadedTowards } from './utility.js';
 import { levels } from './levels.js';
+import SoundCollection from './sounds.js';
 
 import './App.css';
 
@@ -64,6 +65,7 @@ class App extends Component {
 		this.dragonballCollection = null;
 		this.explosionCollection = null;
 		this.animationTimer = null;
+		this.soundCollection = null;
 	}
 
 	// Lifecycle Events ////
@@ -86,7 +88,7 @@ class App extends Component {
 		this.spitballCollection = new SpitballCollection(context, this.fieldWidth, this.fieldHeight);
 		this.explosionCollection = new ExplosionCollection(context, this.fieldWidth, this.fieldHeight);
 		this.dragonballCollection = new dragonballCollection(context, this.fieldWidth, this.fieldHeight);
-
+		this.soundCollection = new SoundCollection();
 		this.dragonfly.hidden = true;
 
 		// register event listeners:
@@ -167,6 +169,7 @@ class App extends Component {
 	_keyDown(evt) {
 
 		if(this.state.inGame){
+
 			switch(evt.key) {
 				case 'ArrowUp':
 				case 'Up': // IE 
@@ -566,6 +569,8 @@ class App extends Component {
 		if(this.state.paused)
 			return;
 
+		this.soundCollection.fire(targetDirection);
+
 		switch(targetDirection) {
 			case 'N':
 				if(this.state.laserNTemp !== 0)
@@ -598,6 +603,7 @@ class App extends Component {
 			for(let i=this.dragonballCollection.dragonballs.length-1; i>=0; i--) {
 				let dragonball = this.dragonballCollection.dragonballs[i];
 				if(this.dragonballCollection.isHit(i, targetDirection)) {
+						this.soundCollection.playExplosion();
 						this.explosionCollection.add(dragonball.x, dragonball.y, 3.0);
 						this.dragonballCollection.dragonballs.splice(i,1);
 						this.bumpScore(400);
@@ -633,6 +639,7 @@ class App extends Component {
 					this.weevilCollection.weevils.splice(i,1);
 					this.bumpScore(750);
 					let weevilCoordinates = this.weevilCollection.getWeevilPosition(targetDirection);
+					this.soundCollection.playExplosion();
 					this.explosionCollection.add(weevilCoordinates.x ,weevilCoordinates.y, 1.2);
 					this.spitballCollection.cancelSpitballs(targetDirection);
 					if(this.weevilCollection.allDead()){
@@ -653,6 +660,7 @@ class App extends Component {
 			this.dragonfly.hidden = true;
 			let dragonflyCoordinates = this.dragonfly.getPosition();
 			this.explosionCollection.add(dragonflyCoordinates.x, dragonflyCoordinates.y, 2.0);
+			this.soundCollection.playExplosion();
 			this.setState({level: this.state.level + 1, wavesCleared: 0});
 			this.loadLevel(this.state.level);
 			this.bumpScore(2000);
