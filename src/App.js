@@ -603,7 +603,7 @@ class App extends Component {
 			for(let i=this.dragonballCollection.dragonballs.length-1; i>=0; i--) {
 				let dragonball = this.dragonballCollection.dragonballs[i];
 				if(this.dragonballCollection.isHit(i, targetDirection)) {
-						this.soundCollection.playExplosion();
+						this.soundCollection.playExplosion2();
 						this.explosionCollection.add(dragonball.x, dragonball.y, 3.0);
 						this.dragonballCollection.dragonballs.splice(i,1);
 						this.bumpScore(400);
@@ -639,7 +639,7 @@ class App extends Component {
 					this.weevilCollection.weevils.splice(i,1);
 					this.bumpScore(750);
 					let weevilCoordinates = this.weevilCollection.getWeevilPosition(targetDirection);
-					this.soundCollection.playExplosion();
+					this.soundCollection.playExplosion1();
 					this.explosionCollection.add(weevilCoordinates.x ,weevilCoordinates.y, 1.2);
 					this.spitballCollection.cancelSpitballs(targetDirection);
 					if(this.weevilCollection.allDead()){
@@ -660,7 +660,7 @@ class App extends Component {
 			this.dragonfly.hidden = true;
 			let dragonflyCoordinates = this.dragonfly.getPosition();
 			this.explosionCollection.add(dragonflyCoordinates.x, dragonflyCoordinates.y, 2.0);
-			this.soundCollection.playExplosion();
+			this.soundCollection.playExplosion3();
 			this.setState({level: this.state.level + 1, wavesCleared: 0});
 			this.loadLevel(this.state.level);
 			this.bumpScore(2000);

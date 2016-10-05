@@ -1,5 +1,8 @@
 import laserSndData from '../sounds/laser1.wav'; // laserSndData is a data URL (by virtue of Webpack's URL loader which will load wav Data <10k size as data URLs)
-import explosionSndData from '../sounds/explosion1.mp3';
+import explosion1SndData from '../sounds/explosion1.mp3';
+import explosion2SndData from '../sounds/explosion2.mp3';
+import explosion3SndData from '../sounds/explosion3.mp3';
+
 export default class SoundCollection {
 	constructor() {
 		this.buffers = {};
@@ -20,7 +23,9 @@ export default class SoundCollection {
 
 	_loadSounds() {
 		this._loadSound(laserSndData, 'laserSnd');
-		this._loadSound(explosionSndData, 'explosionSnd');
+		this._loadSound(explosion1SndData, 'explosion1Snd');
+		this._loadSound(explosion2SndData, 'explosion2Snd');
+		this._loadSound(explosion3SndData, 'explosion3Snd');
 	}
 
 	_loadSound(url, sndName) {
@@ -52,8 +57,18 @@ export default class SoundCollection {
 		this._playSound('laserSnd');
 	}
 
-	playExplosion() {
-		this._playSound('explosionSnd');
+	playExplosion1() {
+			this._playSound('explosion1Snd');
 	}
+
+	playExplosion2() {
+			this._playSound('explosion2Snd');
+	}
+
+	playExplosion3() {
+			console.log('explosion3');
+			this._playSound('explosion3Snd');
+	}
+
 }
 
