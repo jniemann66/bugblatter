@@ -14,7 +14,10 @@ const levels = [ {	laserCooldown: 5, dragonballLaunchWait: 10, maxSpitballs: 2, 
 	{	laserCooldown: 4, dragonballLaunchWait: 0, maxSpitballs: 8, maxDragonballs: 128, dragonflyNoShootRadius: 80, dragonflyFlightPath: '3-leaf', },
 	{	laserCooldown: 4, dragonballLaunchWait: 2, maxSpitballs: 8, maxDragonballs: 64, dragonflyNoShootRadius: 75, dragonflyFlightPath: 'hex-attack', },
 	{	laserCooldown: 4, dragonballLaunchWait: 2, maxSpitballs: 8, maxDragonballs: 64, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'spray-tan', },
-	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 1, maxDragonballs: 3, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'flowery', weevilMargin: 120},
+	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 12, maxDragonballs: 3, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'flowery', weevilMargin: 30},
+	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 6, maxDragonballs: 3, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'trillium-swoop', weevilMargin: 60},
+	{	laserCooldown: 5, dragonballLaunchWait: 4, maxSpitballs: 4, maxDragonballs: 24, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'vertical-ellipse', weevilMargin: 60},
+	{	laserCooldown: 5, dragonballLaunchWait: 15, maxSpitballs: 8, maxDragonballs: 12, dragonflyNoShootRadius: 50, dragonflyFlightPath: 'ninja', weevilMargin: 30},
 
 
 

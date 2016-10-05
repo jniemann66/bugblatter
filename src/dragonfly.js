@@ -3,20 +3,20 @@ import ImgFile from '../images/dragonfly-bright.png';
 const TWOPI = 2 * Math.PI;
 
 const flightPaths = [
-	{M: 120, N: 60, penRadius: -0.2, drawingRadius: 320, tilt: 0, name: 'vertical-ellipse', difficulty: 1},
-	{M: 120, N: 80, penRadius: -0.2, drawingRadius: 600, tilt: 0, name: '3-leaf', difficulty: 3},	// pretty !
-	{M: 96, N: 15, penRadius: 2, drawingRadius: 300, tilt: 0, name: 'flowery', difficulty: 1},
-	{M: 96, N: 32, penRadius: 0.3, drawingRadius: 400, tilt: 0, name: 'guitar-pick', difficulty: 3},
-	{M: 11, N: 44, penRadius: 2, drawingRadius: 30, tilt: 0, name: 'bacon-beast', difficulty: 3},
-	{M: 96, N: 36, penRadius: 0.7, drawingRadius: 380, tilt: 0, name: 'star-8', difficulty: 3},
-	{M: 120, N: 24, penRadius: 1.1, drawingRadius: 300, tilt: Math.PI / 4, name: 'pentagon', difficulty: 4},
-	{M: 96, N: 32, penRadius: -1.2, drawingRadius: 380, tilt: Math.PI / 6, name: 'trillium-swoop', difficulty: 5},
-	{M: 96, N: 24, penRadius: 1.3, drawingRadius: 320, tilt: Math.PI /2, name: 'box', difficulty: 6}, // pretty
-	{M: 96, N: 48, penRadius: 1.8, drawingRadius: 400, tilt: 0, name: 'flyby-orbit', difficulty: 10},
-	{M: 96, N: 24, penRadius: 2.7, drawingRadius: 700, tilt: 0, name: 'fast-swoop', difficulty: 11},
-	{M: 96, N: 24, penRadius: -1.01, drawingRadius: 300, tilt: -Math.PI / 8, name: 'ninja', difficulty: 11},
-	{M: 120, N: 140, penRadius: 0.92, drawingRadius: 220, tilt: Math.PI / 8, name: 'hex-attack', difficulty: 3},	// pretty !
-	{M: 120, N: 150, penRadius: 0.85, drawingRadius: 220, tilt: Math.PI / 4, name: 'spray-tan', difficulty: 3}
+	{M: 120, N: 60, penRadius: -0.2, drawingRadius: 320, tilt: 0, name: 'vertical-ellipse'},
+	{M: 120, N: 80, penRadius: -0.2, drawingRadius: 600, tilt: 0, name: '3-leaf'},	// pretty !
+	{M: 96, N: 15, penRadius: 2, drawingRadius: 300, tilt: 0, name: 'flowery'},
+	{M: 96, N: 32, penRadius: 0.3, drawingRadius: 400, tilt: 0, name: 'guitar-pick'},
+	{M: 11, N: 44, penRadius: 2, drawingRadius: 30, tilt: 0, name: 'bacon-beast'},
+	{M: 96, N: 36, penRadius: 0.7, drawingRadius: 380, tilt: 0, name: 'star-8'},
+	{M: 120, N: 24, penRadius: 1.1, drawingRadius: 300, tilt: Math.PI / 4, name: 'pentagon'},
+	{M: 96, N: 32, penRadius: -1.2, drawingRadius: 380, tilt: Math.PI / 6, name: 'trillium-swoop'},
+	{M: 96, N: 24, penRadius: 1.3, drawingRadius: 320, tilt: Math.PI /2, name: 'box'}, // pretty
+	{M: 96, N: 48, penRadius: 1.8, drawingRadius: 400, tilt: 0, name: 'flyby-orbit'},
+	{M: 96, N: 24, penRadius: 2.7, drawingRadius: 700, tilt: 0, name: 'fast-swoop'},
+	{M: 96, N: 24, penRadius: -1.01, drawingRadius: 300, tilt: -Math.PI / 8, name: 'ninja'},
+	{M: 120, N: 140, penRadius: 0.92, drawingRadius: 220, tilt: Math.PI / 8, name: 'hex-attack'},	// pretty !
+	{M: 120, N: 150, penRadius: 0.85, drawingRadius: 220, tilt: Math.PI / 4, name: 'spray-tan'}
 ];
 
 export default class Dragonfly {
