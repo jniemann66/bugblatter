@@ -473,7 +473,6 @@ class App extends Component {
 		levelNumber = levelNumber > levels.length - 1 ? levels.length - 1 : levelNumber;
 		this.setState(levels[levelNumber], 
 			() => {
-				console.log(this.state);
 				this.dragonfly.selectFlightPathByName(this.state.dragonflyFlightPath);
 				this.weevilCollection.setWeevilMargin(this.state.weevilMargin);
 				this.spitballCollection.setWeevilMargin(this.state.weevilMargin);
