@@ -16,6 +16,7 @@ const flightPaths = [
 	{M: 96, N: 24, penRadius: 2.7, drawingRadius: 700, tilt: 0, name: 'fast-swoop', difficulty: 11},
 	{M: 96, N: 24, penRadius: -1.01, drawingRadius: 300, tilt: -Math.PI / 8, name: 'ninja', difficulty: 11},
 	{M: 120, N: 140, penRadius: 0.92, drawingRadius: 220, tilt: Math.PI / 8, name: 'hex-attack', difficulty: 3},	// pretty !
+	{M: 120, N: 150, penRadius: 0.85, drawingRadius: 220, tilt: Math.PI / 4, name: 'spray-tan', difficulty: 3}
 ];
 
 export default class Dragonfly {

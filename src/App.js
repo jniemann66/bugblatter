@@ -29,6 +29,7 @@ class App extends Component {
 			offsetTop: null,			// vertical start coordinate of playfield relative to canvas
 			scale: null,					// scale of game playfield (canvas pixel : game pixel ratio)
 			laserOriginRadius: 60,// defines the radius at which laser beam emerges from base
+			maxWeevilPosition: 75,
 
 			// level / difficulty parameters
 			laserCooldown: 5,			// number of frames before laser can be fired again
@@ -37,6 +38,8 @@ class App extends Component {
 			maxDragonballs: 4,
 			dragonflyNoShootRadius: 60, // determines circular area around base which dragonfly will not shoot (0 = maximum shooting accuracy)
 			dragonflyFlightPath: 'bacon-beast',
+			weevilMargin: 10,			// distance of weevils from edge of screen
+			weevilCreepRate: 0.1,
 
 			// game tracking
 			dragonballLaunchCountdown: 0,
@@ -126,7 +129,6 @@ class App extends Component {
 			// draw
 			this.drawAll();
 
-			// update
 			this.weevilCollection.update();
 			this.launchNewSpitballs();
 			this.launchNewDragonballs();
@@ -470,8 +472,12 @@ class App extends Component {
 		levelNumber = levelNumber <=0 ? 0 : levelNumber - 1; // note: index 0 == level 1
 		levelNumber = levelNumber > levels.length - 1 ? levels.length - 1 : levelNumber;
 		this.setState(levels[levelNumber], 
-			() => {console.log(this.state);
-				this.dragonfly.selectFlightPathByName(this.state.dragonflyFlightPath);}
+			() => {
+				console.log(this.state);
+				this.dragonfly.selectFlightPathByName(this.state.dragonflyFlightPath);
+				this.weevilCollection.setWeevilMargin(this.state.weevilMargin);
+				this.spitballCollection.setWeevilMargin(this.state.weevilMargin);
+			}
 		);
 	}
 
@@ -603,9 +609,9 @@ class App extends Component {
 		if(this.spitballCollection.spitballs.length !== 0) { // check for spitball collisions
 			for(let i=0; i<this.spitballCollection.spitballs.length; i++) {
 				if(this.spitballCollection.spitballs[i].ready && this.spitballCollection.spitballs[i].direction === targetDirection) {
-					let spitballPos = this.spitballCollection.spitballs[i].position;
+					let spitballPos = this.spitballCollection.spitballs[i].position - 10;
 					if(spitballPos > laserHitPosition){ // record the closest (most advanced) spitball
-						laserHitPosition = spitballPos;
+						laserHitPosition = spitballPos + this.spitballCollection.weevilMargin;
 						spitballHitIndex = i;
 						spitballHit = true;
 					}

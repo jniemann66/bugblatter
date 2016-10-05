@@ -43,6 +43,11 @@ export default class weevilCollection {
 		this.weevilWpos = {x: this.weevilMargin, y: this.centerY - this.weevilRadius}; 
 	}
 
+	setWeevilMargin(weevilMargin) {
+		this.weevilMargin = weevilMargin;
+		this._setWeevilPositions();
+	}
+
 	// getWeevilPosition() : returns coordinates of _center_ of weevil
 	getWeevilPosition(direction) {
 			switch(direction){		

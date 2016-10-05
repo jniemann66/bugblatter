@@ -11,15 +11,7 @@ export default class LaserBase {
 		this.baseRadius = Math.floor(this.baseImgWidth / 2); 
 		this.drawPosX = this.centerX - this.baseRadius;
 		this.drawPosY = this.centerY - this.baseRadius; 
-		this.bugRadius = 37;
-		this.bugMargin = 10;
-		this.maxBugs = 4; 
-		this.spitballRadius = 15;
-		this.maxSpitballs = 8;
-		this.spitballLength = 28;
 		this.laserOriginRadius = 60;
-		this.spitballs = [];
-
 		this.baseImg = new Image();
 		this.baseImg.onload = () => {
 			this.imageLoaded = true; 

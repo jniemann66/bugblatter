@@ -10,11 +10,12 @@ export default class SpitballCollection {
 		this.fieldHeight = fieldHeight;
 		this.centerX = fieldWidth / 2;
 		this.centerY = fieldHeight / 2;
-		this.bugRadius = 37;
-		this.bugMargin = 10;
+		this.weevilRadius = 37;
+		this.weevilMargin = 10;
 		this.maxBugs = 4; 
 		this.spitballRadius = 15;
-		this.maxDistance = 245;
+		this.baseHitRadius = 65;
+		this.maxDistance = 245;		// (re)computed by _initStartPositions()
 
 		this._initStartPositions();
 
@@ -24,10 +25,11 @@ export default class SpitballCollection {
 	}
 
 	_initStartPositions() {
-		this.spitballNstartpos = {x: this.centerX-this.spitballRadius, y: this.bugMargin};
-		this.spitballEstartpos = {x: this.fieldWidth - 2 * this.spitballRadius  - this.bugMargin, y: this.centerY - this.spitballRadius};
-		this.spitballSstartpos = {x: this.centerX - this.spitballRadius, y: this.fieldHeight - 2 * this.spitballRadius - this.bugMargin};
-		this.spitballWstartpos = {x: this.bugMargin, y: this.centerY - this.spitballRadius};
+		this.maxDistance = this.centerY - this.weevilMargin - this.baseHitRadius;
+		this.spitballNstartpos = {x: this.centerX-this.spitballRadius, y: this.weevilMargin};
+		this.spitballEstartpos = {x: this.fieldWidth - 2 * this.spitballRadius  - this.weevilMargin, y: this.centerY - this.spitballRadius};
+		this.spitballSstartpos = {x: this.centerX - this.spitballRadius, y: this.fieldHeight - 2 * this.spitballRadius - this.weevilMargin};
+		this.spitballWstartpos = {x: this.weevilMargin, y: this.centerY - this.spitballRadius};
 	}
 
 	_loadImages() {
@@ -85,6 +87,11 @@ export default class SpitballCollection {
 		ctx.restore();
 	}
 
+	setWeevilMargin(weevilMargin) {
+		this.weevilMargin = weevilMargin;
+		this._initStartPositions();
+	}
+
 	update(onHit) {
 			// move existing spitballs if they are ready:
 		for(let i=0; i<this.spitballs.length; i++) {
@@ -100,7 +107,7 @@ export default class SpitballCollection {
  
 	launchSpitball(direction) {
 		let speed=0.25+Math.random()*2.75;
-		let newSpitball = {direction: direction, position: this.bugRadius, speed: speed, ready: false};
+		let newSpitball = {direction: direction, position: this.weevilRadius, speed: speed, ready: false};
 		this.spitballs.push(newSpitball);
 		setTimeout(
 			() => {newSpitball.ready=true;}, 
