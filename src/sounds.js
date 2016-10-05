@@ -1,4 +1,4 @@
-import laserSndData from '../sounds/laser1.wav'; // laserSndData is a data URL (by virtue of Webpack's URL loader which will load wav Datas <10k size as data URLs)
+import laserSndData from '../sounds/laser1.wav'; // laserSndData is a data URL (by virtue of Webpack's URL loader which will load wav Data <10k size as data URLs)
 import explosionSndData from '../sounds/explosion1.mp3';
 export default class SoundCollection {
 	constructor() {
@@ -28,7 +28,6 @@ export default class SoundCollection {
   	request.open('GET', url, true);
   	request.responseType = 'arraybuffer'; 	// audio buffer needs to be in arraybuffer format for use with Sound API
 
-  	// Decode asynchronously
 		request.onload = () => {
 			this.audioContext.decodeAudioData(request.response, (buffer) => {
 				this.buffers[sndName] = buffer;
