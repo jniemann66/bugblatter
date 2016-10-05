@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Dragonfly from './dragonfly.js';
-import DragonBallCollection from './dragonballs.js';
+import dragonballCollection from './dragonballs.js';
 import WeevilCollection from './weevils.js';
 import SpitballCollection from './spitballs.js';
 import LaserBase from './laserbase.js';
@@ -85,7 +85,7 @@ class App extends Component {
 		this.weevilCollection = new WeevilCollection(context, this.fieldWidth, this.fieldHeight);
 		this.spitballCollection = new SpitballCollection(context, this.fieldWidth, this.fieldHeight);
 		this.explosionCollection = new ExplosionCollection(context, this.fieldWidth, this.fieldHeight);
-		this.dragonballCollection = new DragonBallCollection(context, this.fieldWidth, this.fieldHeight);
+		this.dragonballCollection = new dragonballCollection(context, this.fieldWidth, this.fieldHeight);
 
 		this.dragonfly.hidden = true;
 
@@ -518,10 +518,10 @@ class App extends Component {
 	}
 
 	launchNewDragonballs() {
-		// conditionally launch new DragonBalls:
+		// conditionally launch new dragonballs:
 		if(!this.dragonfly.hidden && 
 			this.state.dragonballLaunchCountdown <= 0 &&
-			this.dragonballCollection.dragonBalls.length < this.state.maxDragonballs) {
+			this.dragonballCollection.dragonballs.length < this.state.maxDragonballs) {
 						
 			let x0 = this.dragonfly.getPosition().x;
 			let y0 = this.dragonfly.getPosition().y;
@@ -538,7 +538,7 @@ class App extends Component {
 				if(discriminant < 0) { // oustide the No-Shoot Radius; ok to shoot ...
 						let vx = 2 * Math.cos(-r-Math.PI/2);
 						let vy = 2 * Math.sin(-r-Math.PI/2);
-						this.dragonballCollection.dragonBalls.push({x: x0, y: y0, vx: vx, vy: vy});
+						this.dragonballCollection.dragonballs.push({x: x0, y: y0, vx: vx, vy: vy});
 						this.setState({dragonballLaunchCountdown: this.state.dragonballLaunchWait});
 				}
 
@@ -594,12 +594,12 @@ class App extends Component {
 		let spitballHit = false;
 		let spitballHitIndex = 0;
 		
-		if(this.dragonballCollection.dragonBalls.length !== 0) {
-			for(let i=this.dragonballCollection.dragonBalls.length-1; i>=0; i--) {
-				let dragonBall = this.dragonballCollection.dragonBalls[i];
+		if(this.dragonballCollection.dragonballs.length !== 0) {
+			for(let i=this.dragonballCollection.dragonballs.length-1; i>=0; i--) {
+				let dragonball = this.dragonballCollection.dragonballs[i];
 				if(this.dragonballCollection.isHit(i, targetDirection)) {
-						this.explosionCollection.add(dragonBall.x, dragonBall.y, 3.0);
-						this.dragonballCollection.dragonBalls.splice(i,1);
+						this.explosionCollection.add(dragonball.x, dragonball.y, 3.0);
+						this.dragonballCollection.dragonballs.splice(i,1);
 						this.bumpScore(400);
 				}
 			} 

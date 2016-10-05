@@ -1,6 +1,6 @@
-import dragonBallImgFile from '../images/dragonBall.png';
+import dragonballImgFile from '../images/dragonball.png';
 
-export default class DragonBallCollection {
+export default class DragonballCollection {
 	constructor(context, fieldWidth=640, fieldHeight=640) {
 		this.context = context;
 		this.fieldWidth = fieldWidth;
@@ -13,12 +13,12 @@ export default class DragonBallCollection {
 		this.Img.onload = () => {
 			this.imageLoaded = true; 
 		};
-		this.Img.src = dragonBallImgFile;
+		this.Img.src = dragonballImgFile;
 
 		this.attraction = 2.5;
 		this.drag = 0.001;
 
-		this.dragonBalls = [];
+		this.dragonballs = [];
 	}
 
 	drawNext() {
@@ -27,57 +27,57 @@ export default class DragonBallCollection {
 		const imgHeight = this.Img.height;
 		const imgCenterX = 0.5 * imgWidth;
 		const imgCenterY = 0.5 * imgHeight;
-		const dragonBalls = this.dragonBalls;
+		const dragonballs = this.dragonballs;
 		
 		ctx.save();
 		ctx.globalAlpha = 0.8;
 
-		for(let i = 0; i < dragonBalls.length; ++i) {
-			let dragonBall = dragonBalls[i];
-			if(!dragonBall.isHidden) {
-				ctx.drawImage(this.Img, dragonBall.x - imgCenterX,  dragonBall.y - imgCenterY);
+		for(let i = 0; i < dragonballs.length; ++i) {
+			let dragonball = dragonballs[i];
+			if(!dragonball.isHidden) {
+				ctx.drawImage(this.Img, dragonball.x - imgCenterX,  dragonball.y - imgCenterY);
 			}
 		}
 		ctx.restore();
 	}
 
-	update(onHit) { // onHit will be called when a Dragonball has hit the base.
-		let dragonBalls = this.dragonBalls;
+	update(onHit) { // onHit will be called when a dragonball has hit the base.
+		let dragonballs = this.dragonballs;
 
-		for(let i = dragonBalls.length-1; i >= 0; --i) {
-			let dragonBall = dragonBalls[i];
+		for(let i = dragonballs.length-1; i >= 0; --i) {
+			let dragonball = dragonballs[i];
 
 			// update displacement:
-			dragonBall.x += dragonBall.vx;
-			dragonBall.y += dragonBall.vy;
+			dragonball.x += dragonball.vx;
+			dragonball.y += dragonball.vy;
 
 			// check for collision with base:
 
 			if(
-				(dragonBall.x > (this.centerX - this.baseRadius)) &&
-				(dragonBall.x < (this.centerX + this.baseRadius)) &&
-				(dragonBall.y > (this.centerY - this.baseRadius)) &&
-				(dragonBall.y < (this.centerY + this.baseRadius))
+				(dragonball.x > (this.centerX - this.baseRadius)) &&
+				(dragonball.x < (this.centerX + this.baseRadius)) &&
+				(dragonball.y > (this.centerY - this.baseRadius)) &&
+				(dragonball.y < (this.centerY + this.baseRadius))
 				) {
-					onHit(dragonBall.x-this.Img.width, dragonBall.y-this.Img.height);
-					dragonBalls.splice(i,1);
+					onHit(dragonball.x-this.Img.width, dragonball.y-this.Img.height);
+					dragonballs.splice(i,1);
 			}
 
 			// update velocity
-			let dx = this.centerX - dragonBall.x;
-			let dy = this.centerY - dragonBall.y;
+			let dx = this.centerX - dragonball.x;
+			let dy = this.centerY - dragonball.y;
 			let d2 = Math.pow(dx,2) + Math.pow(dy,2);
 
-			dragonBall.vx = dragonBall.vx * (1 - this.drag) + this.attraction * dx / d2;
-			dragonBall.vy = dragonBall.vy * (1 - this.drag) + this.attraction * dy / d2;
+			dragonball.vx = dragonball.vx * (1 - this.drag) + this.attraction * dx / d2;
+			dragonball.vy = dragonball.vy * (1 - this.drag) + this.attraction * dy / d2;
 		}
 
 		// acceleration
 	}
 
 	isHit(index, direction) {
-		const x = this.dragonBalls[index].x;
-		const y = this.dragonBalls[index].y;
+		const x = this.dragonballs[index].x;
+		const y = this.dragonballs[index].y;
 		const cx = this.centerX;
 		const cy = this.centerY;
 		const hitRadius = this.Img.width;
@@ -114,6 +114,6 @@ export default class DragonBallCollection {
 	}
 
 	clear() {
-		this.dragonBalls = [];
+		this.dragonballs = [];
 	}
 };
