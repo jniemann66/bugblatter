@@ -1,7 +1,7 @@
-import weevilNImgFile from '../images/WeevilN_75px.png';
-import weevilEImgFile from '../images/WeevilE_75px.png';
-import weevilSImgFile from '../images/WeevilS_75px.png';
-import weevilWImgFile from '../images/WeevilW_75px.png';
+import weevilNImgFile from '../images/WeevilN_75px_3.png';
+import weevilEImgFile from '../images/WeevilE_75px_3.png';
+import weevilSImgFile from '../images/WeevilS_75px_3.png';
+import weevilWImgFile from '../images/WeevilW_75px_3.png';
 
 export default class weevilCollection {
 	constructor(context, fieldWidth=640, fieldHeight=640) {
