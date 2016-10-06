@@ -66,7 +66,6 @@ export default class SoundCollection {
 	}
 
 	playExplosion3() {
-			console.log('explosion3');
 			this._playSound('explosion3Snd');
 	}
 
