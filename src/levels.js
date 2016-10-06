@@ -1,4 +1,4 @@
-const levels = [ {	laserCooldown: 5, dragonballLaunchWait: 10, maxSpitballs: 2, maxDragonballs: 2, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'vertical-ellipse', },
+const levels = [ {	laserCooldown: 5, dragonballLaunchWait: 10, maxSpitballs: 2, maxDragonballs: 2, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'vertical-ellipse', weevilMargin: 10},
 	{	laserCooldown: 5, dragonballLaunchWait: 15, maxSpitballs: 3, maxDragonballs: 3, dragonflyNoShootRadius: 80, dragonflyFlightPath: '3-leaf', },
 	{	laserCooldown: 5, dragonballLaunchWait: 5, maxSpitballs: 3, maxDragonballs: 3, dragonflyNoShootRadius: 80, dragonflyFlightPath: 'flowery', },
 	{	laserCooldown: 5, dragonballLaunchWait: 15, maxSpitballs: 4, maxDragonballs: 4, dragonflyNoShootRadius: 60, dragonflyFlightPath: 'guitar-pick', },
