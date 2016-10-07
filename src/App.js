@@ -525,19 +525,22 @@ class App extends Component {
 		if(!this.dragonfly.hidden && 
 			this.state.dragonballLaunchCountdown <= 0 &&
 			this.dragonballCollection.dragonballs.length < this.state.maxDragonballs) {
-						
-			let x0 = this.dragonfly.getPosition().x;
-			let y0 = this.dragonfly.getPosition().y;
-			let r = this.dragonfly.getPosition().r;
+			
+			let x0, y0, r;
+			({x: x0, y: y0, r} = this.dragonfly.getPosition());
+		
 			let dx = Math.cos(-r-Math.PI/2);
 			let dy = Math.sin(-r-Math.PI/2);
 			let x1 = x0 + dx;
 			let y1 = y0 + dy;
 
-		  if(isHeadedTowards(x0,y0,x1,y1,320,320)) { // dragonfly is facing towards base
+			let centerX = this.state.fieldWidth / 2;
+			let centerY = this.state.fieldHeight / 2;
+
+		  if(isHeadedTowards(x0,y0,x1,y1,centerX,centerY)) { // dragonfly is facing towards base
 				// to-do: replace the 320's
 
-				let discriminant = testLineCircleIntersection(x0,y0,x1,y1,320,320,this.state.dragonflyNoShootRadius);
+				let discriminant = testLineCircleIntersection(x0,y0,x1,y1,centerX,centerY,this.state.dragonflyNoShootRadius);
 				if(discriminant < 0) { // oustide the No-Shoot Radius; ok to shoot ...
 						let vx = 2 * Math.cos(-r-Math.PI/2);
 						let vy = 2 * Math.sin(-r-Math.PI/2);
