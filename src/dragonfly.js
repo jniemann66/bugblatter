@@ -2,7 +2,7 @@ import ImgFile from '../images/dragonfly-bright.png';
 
 const TWOPI = 2 * Math.PI;
 
-const flightPaths = [
+const flightPaths = [ // note: parameters must be in correct order (M, N, penRadius, drawingRadius, tilt)
 	{M: 120, N: 60, penRadius: -0.2, drawingRadius: 320, tilt: 0, name: 'vertical-ellipse'},
 	{M: 120, N: 80, penRadius: -0.2, drawingRadius: 600, tilt: 0, name: '3-leaf'},	// pretty !
 	{M: 96, N: 15, penRadius: 2, drawingRadius: 300, tilt: 0, name: 'flowery'},
@@ -39,10 +39,21 @@ export default class Dragonfly {
 	}
 
 	selectFlightPathByName(name) {
-		let params = flightPaths.filter(flightPath => flightPath.name === name)[0];
+		let params = flightPaths.filter(flightPath => flightPath.name === name)[0]; // IE doesn't have find()
 		if(params) {
+
+			/*
 			let paramsArr = Object.keys(params).map(key => params[key]);
-			this.setPath(...paramsArr);
+			this.setPath(...paramsArr); 	// Warning: assumes insertion order of object properties is preserved. 
+			// The ECMA-262 standard doesn't define any particular order, but in PRACTICE, all Javascript engines I have tested preserve the order of 
+			// object properties with non-numeric keys. (they sort the order of properties with numeric keys in ascending order)
+			*/
+
+			// safer method (using destructuring)
+			let M, N, penRadius, drawingRadius, tilt;
+			({M, N, penRadius, drawingRadius, tilt} = params);
+			this.setPath(M, N, penRadius, drawingRadius, tilt); 
+			
 		}
 	}
 
