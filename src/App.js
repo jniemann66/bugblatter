@@ -38,7 +38,7 @@ class App extends Component {
 			maxSpitballs: 8,
 			maxDragonballs: 4,
 			dragonflyNoShootRadius: 60, // determines circular area around base which dragonfly will not shoot (0 = maximum shooting accuracy)
-			dragonflyFlightPath: 'bacon-beast',
+			dragonflyFlightPath: 'vertical-ellipse',
 			weevilMargin: 10,			// distance of weevils from edge of screen
 			weevilCreepRate: 0.1,
 
