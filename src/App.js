@@ -538,7 +538,6 @@ class App extends Component {
 			let centerY = this.state.fieldHeight / 2;
 
 		  if(isHeadedTowards(x0,y0,x1,y1,centerX,centerY)) { // dragonfly is facing towards base
-				// to-do: replace the 320's
 
 				let discriminant = testLineCircleIntersection(x0,y0,x1,y1,centerX,centerY,this.state.dragonflyNoShootRadius);
 				if(discriminant < 0) { // oustide the No-Shoot Radius; ok to shoot ...
