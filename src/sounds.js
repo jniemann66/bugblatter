@@ -41,7 +41,7 @@ export default class SoundCollection {
 			if(this.audioContext.state === 'suspended') {
 				this.audioContext.resume().then( () => {
 
-					// play a silent "sound" to unloack iOS sound system (needs to be done in a touchend event ...)
+					// play a silent "sound" to unlock iOS sound system (needs to be done in a touchend event ...)
 					let fuApple = this.audioContext.createBuffer(1,1,44100); // 1 channel, 1 sample, 44.1khz s/r
 					let fuAppleSrc = this.audioContext.createBufferSource();
 					fuAppleSrc.buffer = fuApple;
