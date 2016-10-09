@@ -1,4 +1,4 @@
-import laserSndData from '../sounds/laser1.mp3'; // laserSndData is a data URL (by virtue of Webpack's URL loader which will load wav Data <10k size as data URLs)
+import laserSndData from '../sounds/laser2.wav'; // laserSndData is a data URL (by virtue of Webpack's URL loader which will load wav Data <10k size as data URLs)
 import explosion1SndData from '../sounds/explosion1.mp3';
 import explosion2SndData from '../sounds/explosion2.mp3';
 import explosion3SndData from '../sounds/explosion3.mp3';
@@ -11,7 +11,7 @@ function 	dBtoVoltageGain(dB) {
 
 export default class SoundCollection {
 	constructor() {
-		this.useReverb = false;
+		this.useReverb = true;
 		this.masterReverbLevel = -15; // dB
 		this.soundOK = false;
 		this.buffers = {};
@@ -26,7 +26,6 @@ export default class SoundCollection {
 			this.soundOK = false;
 			return;
 		}
-
 	}
 
 	activateSound() {
@@ -39,24 +38,26 @@ export default class SoundCollection {
 		if(!this.soundOK)
 			return;
 
-//		alert(this.audioContext.state);
-		if(this.audioContext.state === 'suspended') {
+			if(this.audioContext.state === 'suspended') {
 				this.audioContext.resume().then( () => {
-/*
-					
+
+					// play a silent "sound" to unloack iOS sound system (needs to be done in a touchend event ...)
 					let fuApple = this.audioContext.createBuffer(1,1,44100); // 1 channel, 1 sample, 44.1khz s/r
 					let fuAppleSrc = this.audioContext.createBufferSource();
 					fuAppleSrc.buffer = fuApple;
 					fuAppleSrc.connect(this.audioContext.destination);
 					fuAppleSrc.start(0);
-*/
+
+/*				
+					// load and play a sound to unlock iOS sound system (needs to be done in a touchend event ...)
 					this._loadSound(explosion1SndData, 'explosion1Snd', () => {
 							let source = this.audioContext.createBufferSource();
 							source.buffer = this.buffers.explosion1Snd;
 							source.connect(this.audioContext.destination);
 							source.start(0);
 					});
-
+*/
+					// load the sounds
 					this._loadSounds();
 					if(this.useReverb) 
 						this._initReverb();
@@ -87,9 +88,17 @@ export default class SoundCollection {
 				this.buffers[sndName] = buffer;
 				if(callback)
 					callback();
-			}, () => console.log('could not load ', sndName));
+			}, (err) => {
+				console.log('could not decode ', sndName + ' : ' + err);
+			});
 		}
   	request.send();
+	}
+
+	_loadAndPlaySound(url, sndName) {
+		this._loadSound(url, sndName, () => {
+			this._playSound(sndName);
+		});
 	}
 
 	_initReverb() {

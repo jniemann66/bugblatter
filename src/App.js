@@ -91,10 +91,19 @@ class App extends Component {
 		this.soundCollection = new SoundCollection();
 		this.dragonfly.hidden = true;
 
+		// detect if device is iOS:
+		let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+		
+		// Activate sound:
+		if (iOS) { // on iOS device, activate sound system upon receiving first touchend event
+				window.addEventListener('touchend', this._touchEnd.bind(this));
+		} else { // on non-iOS devices, activate sound system immdediately
+			this.soundCollection.activateSound();
+		}
+
 		// register event listeners:
 		window.addEventListener('keydown', this._keyDown.bind(this));
 		window.addEventListener('touchstart', this._touchStart.bind(this));
-		window.addEventListener('touchend', this._touchEnd.bind(this));
 		window.addEventListener('mousedown', this._mouseDown.bind(this));
 		window.addEventListener('resize', this._resize.bind(this));
 
@@ -205,7 +214,6 @@ class App extends Component {
 				default:
 			}
 		} else {
-			this.soundCollection.activateSound();
 			if(this.state.readyToPlay)
 				this.startGame();
 		}
@@ -268,8 +276,6 @@ class App extends Component {
 		if(this.state.inGame) {
 			this.fireLaser(zone);
 		} else {
-//			this.soundCollection.activateSound();
-//			this.soundCollection.playExplosion1();
 			if(this.state.readyToPlay)
 				this.startGame();
 		}
@@ -280,19 +286,7 @@ class App extends Component {
 
 		if(!this.soundCollection.activated) {
 		
-			// play an empty sound to kickstart iOS sound system (as of iOS9, must be executed inside a tounchend event)			
-			let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-	//		if(audioContext.state === 'suspended')
-				audioContext.resume();
-			let fuApple = audioContext.createBuffer(1,1,44100); // 1 channel, 1 sample, 44.1khz s/r
-			let fuAppleSrc = audioContext.createBufferSource();
-			fuAppleSrc.buffer = fuApple;
-			fuAppleSrc.connect(audioContext.destination);
-			fuAppleSrc.start(0);
-			
-			audioContext.close();
-
-
+			// play a sound to kickstart iOS sound system (as of iOS9, must be executed inside a tounchend event)
 			this.soundCollection.activateSound();
 		}
 	}
@@ -353,7 +347,6 @@ class App extends Component {
 		if(this.state.inGame) {
 			this.fireLaser(zone);
 		} else {
-			this.soundCollection.activateSound();
 			if(this.state.readyToPlay)
 				this.startGame();
 		}
