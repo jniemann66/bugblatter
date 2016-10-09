@@ -94,6 +94,7 @@ class App extends Component {
 		// register event listeners:
 		window.addEventListener('keydown', this._keyDown.bind(this));
 		window.addEventListener('touchstart', this._touchStart.bind(this));
+		window.addEventListener('touchend', this._touchEnd.bind(this));
 		window.addEventListener('mousedown', this._mouseDown.bind(this));
 		window.addEventListener('resize', this._resize.bind(this));
 
@@ -204,6 +205,7 @@ class App extends Component {
 				default:
 			}
 		} else {
+			this.soundCollection.activateSound();
 			if(this.state.readyToPlay)
 				this.startGame();
 		}
@@ -266,10 +268,29 @@ class App extends Component {
 		if(this.state.inGame) {
 			this.fireLaser(zone);
 		} else {
+//			this.soundCollection.activateSound();
+//			this.soundCollection.playExplosion1();
 			if(this.state.readyToPlay)
 				this.startGame();
 		}
 
+	}
+
+	_touchEnd(evt) {
+
+		if(!this.soundCollection.activated) {
+		
+			// play an empty sound to kickstart iOS sound system (as of iOS9, must be executed inside a tounchend event)			
+			let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+			let fuApple = audioContext.createBuffer(1,1,44100); // 1 channel, 1 sample, 44.1khz s/r
+			let fuAppleSrc = audioContext.createBufferSource();
+			fuAppleSrc.buffer = fuApple;
+			fuAppleSrc.connect(audioContext.destination);
+			fuAppleSrc.start(0);
+			audioContext.close();
+
+			this.soundCollection.activateSound();
+		}
 	}
 
 	_mouseDown(evt) {
@@ -328,6 +349,7 @@ class App extends Component {
 		if(this.state.inGame) {
 			this.fireLaser(zone);
 		} else {
+			this.soundCollection.activateSound();
 			if(this.state.readyToPlay)
 				this.startGame();
 		}

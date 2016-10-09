@@ -11,14 +11,21 @@ function 	dBtoVoltageGain(dB) {
 
 export default class SoundCollection {
 	constructor() {
-
 		this.useReverb = true;
 		this.masterReverbLevel = -15; // dB
-		
+		this.soundOK = false;
 		this.buffers = {};
+		this.activated = false;
+	}
+
+	activateSound() {
+
+		if(this.activated)
+			return;
+
+		this.activated = true;
 		try {
-			window.AudioContext = window.AudioContext || window.webkitAudioContext; // Fix up prefixing
-			this.audioContext = new AudioContext();
+			this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
 			this.soundOK = true;
 		}
 		catch(err) {
@@ -40,7 +47,6 @@ export default class SoundCollection {
 		this._loadSound(explosion2SndData, 'explosion2Snd');
 		this._loadSound(explosion3SndData, 'explosion3Snd');
 		this._loadSound(basedeathData, 'basedeathSnd');
-
 	}
 
 	_loadSound(url, sndName, callback) {
