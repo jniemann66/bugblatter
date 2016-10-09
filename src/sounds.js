@@ -3,6 +3,7 @@ import explosion1SndData from '../sounds/explosion1.mp3';
 import explosion2SndData from '../sounds/explosion2.mp3';
 import explosion3SndData from '../sounds/explosion3.mp3';
 import reverbData from '../sounds/reverb.mp3';
+import basedeathData from '../sounds/BaseDeath-mono.mp3';
 
 function 	dBtoVoltageGain(dB) {
 	return Math.pow(10, dB / 20);
@@ -21,7 +22,7 @@ export default class SoundCollection {
 			this.soundOK = true;
 		}
 		catch(err) {
-			console.log('error: unable to load sound system: ', err);
+			alert("NOTE: Unfortunately, Your Browser doesn't support the Web Audio API, so there won't be any sound !");
 			this.soundOK = false;
 			return;
 		}
@@ -38,6 +39,8 @@ export default class SoundCollection {
 		this._loadSound(explosion1SndData, 'explosion1Snd');
 		this._loadSound(explosion2SndData, 'explosion2Snd');
 		this._loadSound(explosion3SndData, 'explosion3Snd');
+		this._loadSound(basedeathData, 'basedeathSnd');
+
 	}
 
 	_loadSound(url, sndName, callback) {
@@ -108,5 +111,8 @@ export default class SoundCollection {
 			this._playSound('explosion3Snd');
 	}
 	
+	playBasedeath() {
+			this._playSound('basedeathSnd');
+	}
 }
 

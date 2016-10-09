@@ -136,6 +136,7 @@ class App extends Component {
 			this.launchNewDragonballs();
 
 			this.spitballCollection.update(() => { /* onHit */
+				this.soundCollection.playBasedeath();
 				this.clearEnemies();
 				this.clearPlayField('#ff0000'); // red flash
 				this.setState({bases: this.state.bases-1});
@@ -144,6 +145,7 @@ class App extends Component {
 			});
 
 			this.dragonballCollection.update((x,y) => { /* onHit */
+				this.soundCollection.playBasedeath();
 				this.clearPlayField('#ff0000'); // red flash
 				this.clearEnemies();
 				this.explosionCollection.add(x, y, 1.0);
