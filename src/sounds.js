@@ -48,15 +48,6 @@ export default class SoundCollection {
 					fuAppleSrc.connect(this.audioContext.destination);
 					fuAppleSrc.start(0);
 
-/*				
-					// load and play a sound to unlock iOS sound system (needs to be done in a touchend event ...)
-					this._loadSound(explosion1SndData, 'explosion1Snd', () => {
-							let source = this.audioContext.createBufferSource();
-							source.buffer = this.buffers.explosion1Snd;
-							source.connect(this.audioContext.destination);
-							source.start(0);
-					});
-*/
 					// load the sounds
 					this._loadSounds();
 					if(this.useReverb) 
