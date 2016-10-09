@@ -283,12 +283,11 @@ class App extends Component {
 	}
 
 	_touchEnd(evt) {
+	
+		// kickstart iOS sound system (as of iOS9, must be executed inside a tounchend event)
+		this.soundCollection.activateSound();
+		// to-do: removeEventListener('touchend') ...
 
-		if(!this.soundCollection.activated) {
-		
-			// play a sound to kickstart iOS sound system (as of iOS9, must be executed inside a tounchend event)
-			this.soundCollection.activateSound();
-		}
 	}
 
 	_mouseDown(evt) {
