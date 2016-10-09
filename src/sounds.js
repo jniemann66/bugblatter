@@ -1,4 +1,4 @@
-import laserSndData from '../sounds/laser1.wav'; // laserSndData is a data URL (by virtue of Webpack's URL loader which will load wav Data <10k size as data URLs)
+import laserSndData from '../sounds/laser1.mp3'; // laserSndData is a data URL (by virtue of Webpack's URL loader which will load wav Data <10k size as data URLs)
 import explosion1SndData from '../sounds/explosion1.mp3';
 import explosion2SndData from '../sounds/explosion2.mp3';
 import explosion3SndData from '../sounds/explosion3.mp3';
@@ -11,33 +11,61 @@ function 	dBtoVoltageGain(dB) {
 
 export default class SoundCollection {
 	constructor() {
-		this.useReverb = true;
+		this.useReverb = false;
 		this.masterReverbLevel = -15; // dB
 		this.soundOK = false;
 		this.buffers = {};
 		this.activated = false;
-	}
 
-	activateSound() {
-
-		if(this.activated)
-			return;
-
-		this.activated = true;
 		try {
 			this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-			this.soundOK = true;
+			this.soundOK = true;	
 		}
 		catch(err) {
 			alert("NOTE: Unfortunately, Your Browser doesn't support the Web Audio API, so there won't be any sound !");
 			this.soundOK = false;
 			return;
 		}
-		if(this.soundOK) {
+
+	}
+
+	activateSound() {
+
+		if(this.activated)
+			return;
+		
+		this.activated = true;
+
+		if(!this.soundOK)
+			return;
+
+//		alert(this.audioContext.state);
+		if(this.audioContext.state === 'suspended') {
+				this.audioContext.resume().then( () => {
+/*
+					
+					let fuApple = this.audioContext.createBuffer(1,1,44100); // 1 channel, 1 sample, 44.1khz s/r
+					let fuAppleSrc = this.audioContext.createBufferSource();
+					fuAppleSrc.buffer = fuApple;
+					fuAppleSrc.connect(this.audioContext.destination);
+					fuAppleSrc.start(0);
+*/
+					this._loadSound(explosion1SndData, 'explosion1Snd', () => {
+							let source = this.audioContext.createBufferSource();
+							source.buffer = this.buffers.explosion1Snd;
+							source.connect(this.audioContext.destination);
+							source.start(0);
+					});
+
+					this._loadSounds();
+					if(this.useReverb) 
+						this._initReverb();
+
+				});
+		} else {
 			this._loadSounds();
-			if(this.useReverb) {
+			if(this.useReverb) 
 				this._initReverb();
-			}
 		}
 	}
 
@@ -76,7 +104,6 @@ export default class SoundCollection {
 	}
 
 	_playSound(sndName) {
-		
 		if(!this.soundOK) return;
 		let buffer = this.buffers[sndName];
 		if (buffer === undefined) return;

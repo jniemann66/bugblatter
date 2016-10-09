@@ -282,12 +282,16 @@ class App extends Component {
 		
 			// play an empty sound to kickstart iOS sound system (as of iOS9, must be executed inside a tounchend event)			
 			let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+	//		if(audioContext.state === 'suspended')
+				audioContext.resume();
 			let fuApple = audioContext.createBuffer(1,1,44100); // 1 channel, 1 sample, 44.1khz s/r
 			let fuAppleSrc = audioContext.createBufferSource();
 			fuAppleSrc.buffer = fuApple;
 			fuAppleSrc.connect(audioContext.destination);
 			fuAppleSrc.start(0);
+			
 			audioContext.close();
+
 
 			this.soundCollection.activateSound();
 		}
