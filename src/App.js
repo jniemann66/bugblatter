@@ -96,7 +96,7 @@ class App extends Component {
 		
 		// Activate sound:
 		if (iOS) { // on iOS device, activate sound system upon receiving first touchend event
-				window.addEventListener('touchend', this._touchEnd.bind(this));
+				window.addEventListener('touchend', this._touchEnd.bind(this), {once: true});
 		} else { // on non-iOS devices, activate sound system immdediately
 			this.soundCollection.activateSound();
 		}
