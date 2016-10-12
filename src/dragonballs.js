@@ -8,7 +8,7 @@ export default class DragonballCollection {
 		this.fieldHeight = fieldHeight;
 		this.centerX = fieldWidth / 2;
 		this.centerY = fieldWidth / 2;
-		this.baseRadius = 30; // controls how far dragonball can penetrate base before considered a hit
+		this.baseRadius = 40; // controls how far dragonball can penetrate base before considered a hit
 		this.imageLoaded = false;
 		this.Img = new Image();
 		this.Img.onload = () => {
@@ -47,17 +47,17 @@ export default class DragonballCollection {
 
 		for(let i = dragonballs.length-1; i >= 0; --i) {
 			let dragonball = dragonballs[i];
-
-//			testLineCircleIntersection(dragonball.x, dragonball.y, dragonball.x + dragonball.vx, dragonball.y + dragonball.vy, this.centerX, this.centerY, this.baseRadius );
-
-
-			// update displacement:
-			dragonball.x += dragonball.vx;
-			dragonball.y += dragonball.vy;
-
-			// check for collision with base:
-			// to-do: use circular hit-zone instead of box ?
-			if(
+			let newDragonballX = dragonball.x + dragonball.vx;
+			let newDragonballY = dragonball.y + dragonball.vy;
+			
+			// check for collision with base: 
+			if (testLineCircleIntersection(dragonball.x, dragonball.y, newDragonballX, newDragonballY, this.centerX, this.centerY, this.baseRadius ) >= 0) { // Circular collision zone
+				onHit(dragonball.x-this.Img.width, dragonball.y-this.Img.height);
+				dragonballs.splice(i,1);
+			}
+			
+			/*
+			if( // square collision zone
 				(dragonball.x > (this.centerX - this.baseRadius)) &&
 				(dragonball.x < (this.centerX + this.baseRadius)) &&
 				(dragonball.y > (this.centerY - this.baseRadius)) &&
@@ -66,6 +66,13 @@ export default class DragonballCollection {
 					onHit(dragonball.x-this.Img.width, dragonball.y-this.Img.height);
 					dragonballs.splice(i,1);
 			}
+			*/
+
+			// update displacement:
+			dragonball.x = newDragonballX;
+			dragonball.y = newDragonballY;
+
+		
 
 			// update velocity
 			let dx = this.centerX - dragonball.x;
