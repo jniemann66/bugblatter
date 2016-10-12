@@ -12,6 +12,9 @@ import SoundCollection from './sounds.js';
 
 import './App.css';
 
+const TWOPI = 2 * Math.PI;
+const HALFPI = Math.PI / 2;
+
 class App extends Component {
 
 	// Construction ////
@@ -547,8 +550,8 @@ class App extends Component {
 			let x0, y0, r;
 			({x: x0, y: y0, r} = this.dragonfly.getPosition());
 		
-			let dx = Math.cos(-r-Math.PI/2);
-			let dy = Math.sin(-r-Math.PI/2);
+			let dx = Math.cos(-r-HALFPI);
+			let dy = Math.sin(-r-HALFPI);
 			let x1 = x0 + dx;
 			let y1 = y0 + dy;
 
@@ -559,8 +562,8 @@ class App extends Component {
 
 				let discriminant = testLineCircleIntersection(x0,y0,x1,y1,centerX,centerY,this.state.dragonflyNoShootRadius);
 				if(discriminant < 0) { // oustide the No-Shoot Radius; ok to shoot ...
-						let vx = 2 * Math.cos(-r-Math.PI/2);
-						let vy = 2 * Math.sin(-r-Math.PI/2);
+						let vx = 2 * Math.cos(-r-HALFPI);
+						let vy = 2 * Math.sin(-r-HALFPI);
 						this.dragonballCollection.dragonballs.push({x: x0, y: y0, vx: vx, vy: vy});
 						this.setState({dragonballLaunchCountdown: this.state.dragonballLaunchWait});
 				}
@@ -571,7 +574,7 @@ class App extends Component {
 				ctx.save();
 				ctx.strokeStyle = (discriminant >= 0) ? "#ff0000" : "#00ff00";	
 				ctx.beginPath();
-				ctx.arc(320,320,this.state.dragonflyNoShootRadius,0,2*Math.PI);
+				ctx.arc(centerX, centerY, this.state.dragonflyNoShootRadius, 0, TWOPI);
 				ctx.moveTo(x0, y0);
 				ctx.lineTo(x0 + 600 * dx, y0 + 600 * dy);
 				ctx.stroke();
