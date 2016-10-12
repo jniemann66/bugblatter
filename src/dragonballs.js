@@ -1,4 +1,5 @@
 import dragonballImgFile from '../images/dragonball.png';
+import { testLineCircleIntersection } from './utility.js';
 
 export default class DragonballCollection {
 	constructor(context, fieldWidth=640, fieldHeight=640) {
@@ -46,6 +47,9 @@ export default class DragonballCollection {
 
 		for(let i = dragonballs.length-1; i >= 0; --i) {
 			let dragonball = dragonballs[i];
+
+//			testLineCircleIntersection(dragonball.x, dragonball.y, dragonball.x + dragonball.vx, dragonball.y + dragonball.vy, this.centerX, this.centerY, this.baseRadius );
+
 
 			// update displacement:
 			dragonball.x += dragonball.vx;
