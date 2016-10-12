@@ -15,8 +15,8 @@ export default class DragonballCollection {
 		};
 		this.Img.src = dragonballImgFile;
 
-		this.attraction = 2.5;
-		this.drag = 0.001;
+		this.attraction = 2.5; // gravitational strength
+		this.drag = 0.001;	// drag acting on dragonball, causing orbital decay ...
 
 		this.dragonballs = [];
 	}
@@ -52,7 +52,7 @@ export default class DragonballCollection {
 			dragonball.y += dragonball.vy;
 
 			// check for collision with base:
-
+			// to-do: use circular hit-zone instead of box ?
 			if(
 				(dragonball.x > (this.centerX - this.baseRadius)) &&
 				(dragonball.x < (this.centerX + this.baseRadius)) &&
@@ -72,7 +72,7 @@ export default class DragonballCollection {
 			dragonball.vy = dragonball.vy * (1 - this.drag) + this.attraction * dy / d2;
 		}
 
-		// acceleration
+		// update acceleration (?)
 	}
 
 	isHit(index, direction) {
@@ -82,6 +82,7 @@ export default class DragonballCollection {
 		const cy = this.centerY;
 		const hitRadius = this.Img.width;
 
+		// to-do: circular hit-zone ?
 		switch(direction) {
 			case 'N':
 				if ((y < cy) && (x>=cx-hitRadius) && (x<=cx+hitRadius)) {

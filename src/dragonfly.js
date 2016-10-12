@@ -1,6 +1,7 @@
 import ImgFile from '../images/dragonfly-bright.png';
 
 const TWOPI = 2 * Math.PI;
+const HALFPI = Math.PI / 2;
 
 const flightPaths = [ // note: parameters must be in correct order (M, N, penRadius, drawingRadius, tilt)
 	{M: 120, N: 60, penRadius: -0.2, drawingRadius: 320, tilt: 0, name: 'vertical-ellipse'},
@@ -70,7 +71,7 @@ export default class Dragonfly {
 		for (let t = 0; t < TWOPI;  t += inc) {
 			let x = (1 - gearRatio) * Math.cos(tilt + N * t) + penRadius * (gearRatio) * Math.cos (tilt + (M - N) * t);
 			let y = (1 - gearRatio) * Math.sin(tilt + N * t) - penRadius * (gearRatio) * Math.sin (tilt + (M - N) * t);
-			let theta = -Math.PI/2 - Math.atan2(y-lastY, x-lastX);
+			let theta = -HALFPI - Math.atan2(y-lastY, x-lastX);
 			lastX = x;
 			lastY = y;
 			this.path.push({x: cx + x * drawingRadius, y: cy + y * drawingRadius, r: theta }); 
