@@ -40,7 +40,6 @@ class App extends Component {
 			dragonflyNoShootRadius: 60, // determines circular area around base which dragonfly will not shoot (0 = maximum shooting accuracy)
 			dragonflyFlightPath: 'vertical-ellipse',
 			weevilMargin: 10,			// distance of weevils from edge of screen
-			weevilCreepRate: 0.1,
 
 			// game tracking
 			dragonballLaunchCountdown: 0,
