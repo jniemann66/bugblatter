@@ -33,7 +33,6 @@ class App extends Component {
 			offsetTop: null,			// vertical start coordinate of playfield relative to canvas
 			scale: null,					// scale of game playfield (canvas pixel : game pixel ratio)
 			laserOriginRadius: 60,// defines the radius at which laser beam emerges from base
-			maxWeevilPosition: 75,
 
 			// level / difficulty parameters
 			laserCooldown: 5,			// number of frames before laser can be fired again

@@ -72,8 +72,6 @@ export default class DragonballCollection {
 			dragonball.x = newDragonballX;
 			dragonball.y = newDragonballY;
 
-		
-
 			// update velocity
 			let dx = this.centerX - dragonball.x;
 			let dy = this.centerY - dragonball.y;
@@ -81,9 +79,10 @@ export default class DragonballCollection {
 
 			dragonball.vx = dragonball.vx * (1 - this.drag) + this.attraction * dx / d2;
 			dragonball.vy = dragonball.vy * (1 - this.drag) + this.attraction * dy / d2;
-		}
 
-		// update acceleration (?)
+			// update acceleration (?)
+
+		}	
 	}
 
 	isHit(index, direction) {
@@ -93,7 +92,6 @@ export default class DragonballCollection {
 		const cy = this.centerY;
 		const hitRadius = this.Img.width;
 
-		// to-do: circular hit-zone ?
 		switch(direction) {
 			case 'N':
 				if ((y < cy) && (x>=cx-hitRadius) && (x<=cx+hitRadius)) {
