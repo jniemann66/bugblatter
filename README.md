@@ -4,13 +4,31 @@ A simple, fun arcade-style game (reminiscent of "Space Zap") written in React, u
 
 Live demo: [BugBlatter](http://bugblatter.juddn.com/ "Bug Blatter")
 
-Controls: use **arrow keys** (up, down, left, right) to fire lasers, **P** to Pause (or **mouse-click**, or **tap** for mobiles)
+
+## Controls: 
+
+use **arrow keys** (up, down, left, right) to fire lasers, 
+
+(or **mouse-click**, or **tap** for mobiles)
+
+**P** to Pause 
 
 
 ![Screenshot](./screenshot.jpg)
 
+## to-do:
 
-(NOT FINISHED - WORK IN PROGRESS)
+* [ ] artwork needs an overhaul (Calling all graphic designers - I need your help !)
 
-currently working on: constructing levels, projectiles for the dragonfly ...
-to-do: artwork will need an overhaul (when the time comes). Rotating/moving base. Power-ups etc etc
+* [ ] more levels
+
+* [ ] reactnative implementation (maybe embed into webview component ? )
+
+* [ ] rotating / moving base
+
+* [ ] power-ups ?
+
+* [ ] customisable / assignable keys
+
+* [ ] improve playability on tiny screens (eg iPhone 4s)
+
