@@ -12,7 +12,7 @@ export default class SpitballCollection {
 		this.centerY = fieldHeight / 2;
 		this.weevilRadius = 37;
 		this.weevilMargin = 10;
-		this.maxBugs = 4; 
+		this.maxBugs = 4;
 		this.spitballRadius = 15;
 		this.baseHitRadius = 65;
 		this.maxDistance = 245;		// (re)computed by _initStartPositions()
@@ -38,7 +38,7 @@ export default class SpitballCollection {
 		this.spitballS = new Image();
 		this.spitballW = new Image();
 
-		this.spitballN.onload = () => {this.spitballNLoaded = true;};     
+		this.spitballN.onload = () => {this.spitballNLoaded = true;};
 		this.spitballE.onload = () => {this.spitballNLoaded = true;};
 		this.spitballS.onload = () => {this.spitballNLoaded = true;};
 		this.spitballW.onload = () => {this.spitballWLoaded = true;};
@@ -55,26 +55,26 @@ export default class SpitballCollection {
 		ctx.globalAlpha = 0.7;
 
 		for(let i=0; i<this.spitballs.length; i++){
-			
+
 			let spitball = this.spitballs[i];
-			
-			if(spitball.ready) {  
+
+			if(spitball.ready) {
 				switch(spitball.direction){
 					 case 'N':
-						ctx.drawImage(this.spitballN, 
-							this.spitballNstartpos.x, 
+						ctx.drawImage(this.spitballN,
+							this.spitballNstartpos.x,
 							this.spitballNstartpos.y + spitball.position);
 						break;
 					case 'E':
-						ctx.drawImage(this.spitballE, 
-							this.spitballEstartpos.x - spitball.position, 
+						ctx.drawImage(this.spitballE,
+							this.spitballEstartpos.x - spitball.position,
 							this.spitballEstartpos.y);
-						break; 
+						break;
 					case 'S':
 						ctx.drawImage(this.spitballS,
-							this.spitballSstartpos.x, 
+							this.spitballSstartpos.x,
 							this.spitballSstartpos.y - spitball.position);
-						break; 
+						break;
 					case 'W':
 						ctx.drawImage(this.spitballW,
 							this.spitballWstartpos.x + spitball.position,
@@ -104,13 +104,13 @@ export default class SpitballCollection {
 			}
 		}
 	}
- 
+
 	launchSpitball(direction) {
 		let speed=0.25+Math.random()*2.75;
 		let newSpitball = {direction: direction, position: this.weevilRadius, speed: speed, ready: false};
 		this.spitballs.push(newSpitball);
 		setTimeout(
-			() => {newSpitball.ready=true;}, 
+			() => {newSpitball.ready=true;},
 			10 + Math.floor(Math.random()*3000) // 10ms-2.01 seconds // to-do: replace raw numbers ...
 		);
 	}
