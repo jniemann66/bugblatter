@@ -12,7 +12,7 @@ export default class weevilCollection {
 		this.centerY = fieldHeight / 2;
 		this.weevilRadius = 37;
 		this.weevilMargin = 10;
-		this.maxWeevils = 4; 
+		this.maxWeevils = 4;
 		this.weevils = [];
 
 		this._loadImages();
@@ -25,7 +25,7 @@ export default class weevilCollection {
 		this.weevilS = new Image();
 		this.weevilW = new Image();
 
-		this.weevilN.onload = () => {this.weevilNLoaded = true;};     
+		this.weevilN.onload = () => {this.weevilNLoaded = true;};
 		this.weevilE.onload = () => {this.weevilNLoaded = true;};
 		this.weevilS.onload = () => {this.weevilNLoaded = true;};
 		this.weevilW.onload = () => {this.weevilWLoaded = true;};
@@ -40,7 +40,7 @@ export default class weevilCollection {
 		this.weevilNpos = {x: this.centerX - this.weevilRadius, y: this.weevilMargin};
 		this.weevilEpos = {x: this.fieldWidth - 2 * this.weevilRadius - this.weevilMargin, y: this.centerY - this.weevilRadius};
 		this.weevilSpos = {x: this.centerX-this.weevilRadius, y: this.fieldHeight - 2 * this.weevilRadius - this.weevilMargin};
-		this.weevilWpos = {x: this.weevilMargin, y: this.centerY - this.weevilRadius}; 
+		this.weevilWpos = {x: this.weevilMargin, y: this.centerY - this.weevilRadius};
 	}
 
 	setWeevilMargin(weevilMargin) {
@@ -50,12 +50,12 @@ export default class weevilCollection {
 
 	// getWeevilPosition() : returns coordinates of _center_ of weevil
 	getWeevilPosition(direction) {
-			switch(direction){		
+			switch(direction){
 					case 'N':
 						return ({x: this.weevilNpos.x +this.weevilRadius, y:this.weevilNpos.y +this.weevilRadius});
 					case 'E':
 						return ({x: this.weevilEpos.x +this.weevilRadius, y:this.weevilEpos.y +this.weevilRadius});
-					case 'S':           
+					case 'S':
 						return ({x: this.weevilSpos.x +this.weevilRadius, y:this.weevilSpos.y +this.weevilRadius});
 					case 'W':
 						return ({x: this.weevilWpos.x +this.weevilRadius, y:this.weevilWpos.y +this.weevilRadius});
@@ -72,24 +72,24 @@ export default class weevilCollection {
 			let weevil = this.weevils[i];
 			if(weevil.ready){
 				switch(weevil.direction){
-					
+
 					case 'N':
 					ctx.drawImage(this.weevilN, this.weevilNpos.x, this.weevilNpos.y);
 					break;
-					
+
 					case 'E':
 					ctx.drawImage(this.weevilE, this.weevilEpos.x, this.weevilEpos.y);
-					break; 
-					
-					case 'S':           
+					break;
+
+					case 'S':
 					ctx.drawImage(this.weevilS, this.weevilSpos.x, this.weevilSpos.y);
-					break; 
-					
+					break;
+
 					case 'W':
 					ctx.drawImage(this.weevilW, this.weevilWpos.x, this.weevilWpos.y);
 					break;
-					
-					default:  
+
+					default:
 				}
 			}
 		}
@@ -113,7 +113,7 @@ export default class weevilCollection {
 		let newWeevil = {direction: direction, ready: false};
 		this.weevils.push(newWeevil);
 		setTimeout(
-			() => {newWeevil.ready=true;}, 
+			() => {newWeevil.ready=true;},
 			500 + Math.floor(Math.random()*5500) // 1-8 seconds // to-do: replace 1000 and 8000 ...
 		);
   }
