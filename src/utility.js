@@ -5,8 +5,8 @@
 // ox,oy : center of circle
 // r: radius of circle
 //
-// return value: 
-//   < 0 : no intersection, 
+// return value:
+//   < 0 : no intersection,
 //   = 0 : tangent (hits circle at one point),
 //   > 0 : intersection (secant; hits circle at two points)
 //
@@ -28,7 +28,7 @@ function testLineCircleIntersection(x0,y0,x1,y1,ox,oy,r) {
 	let bigDSquared = bigD * bigD;
 	let lSquared = dx * dx + dy * dy;
 	let discriminant = rSquared * lSquared - bigDSquared;
-	return discriminant;		
+	return discriminant;
 }
 
 function isHeadedTowards(x0,y0,x1,y1,ox,oy) {
