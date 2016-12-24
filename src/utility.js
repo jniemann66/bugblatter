@@ -14,17 +14,18 @@
 //
 
 function testLineCircleIntersection(x0,y0,x1,y1,ox,oy,r) {
+	
 	// normalize line co-ordinates
-	x0 -= ox;
-	y0 -= oy;
-	x1 -= ox;
-	y1 -= oy;
+	let _x0 = x0 - ox;
+	let _y0 = y0 - oy;
+	let _x1 = x1 - ox;
+	let _y1 = y1 - oy;
 
 	// calculate discriminant
 	let rSquared = r * r;
-	let dx = x1 - x0;
-	let dy = y1 - y0;
-	let bigD = (x0 * y1 - x1 * y0);
+	let dx = _x1 - _x0;
+	let dy = _y1 - _y0;
+	let bigD = (_x0 * _y1 - _x1 * _y0);
 	let bigDSquared = bigD * bigD;
 	let lSquared = dx * dx + dy * dy;
 	let discriminant = rSquared * lSquared - bigDSquared;
