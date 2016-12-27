@@ -59,7 +59,7 @@ class App extends Component {
 			nextWeevilToSpit: 0,
 			wavesCleared: 0,
 		}
-		
+
 		this.weevilCollection = null;
 		this.dragonfly = null;
 		this.spitballCollection = null;
@@ -82,7 +82,7 @@ class App extends Component {
 		this.setState({
 			context: context,
 		});
-		
+
 		this.laserBase = new LaserBase(context, this.fieldWidth, this.fieldHeight);
 		this.dragonfly = new Dragonfly(context, this.fieldWidth, this.fieldHeight);
 		this.weevilCollection = new WeevilCollection(context, this.fieldWidth, this.fieldHeight);
@@ -94,7 +94,7 @@ class App extends Component {
 
 		// detect if device is iOS:
 		let iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-		
+
 		// Activate sound:
 		if (iOS) { // on iOS device, activate sound system upon receiving first touchend event
 				window.addEventListener('touchend', this._touchEnd.bind(this)/*, {once: true}*/);
@@ -110,7 +110,7 @@ class App extends Component {
 
 		this.animationTimer = setInterval(this._update.bind(this),1000 / this.props.framesPerSecond); // 60fps = 16.67ms
 	}
-	
+
 	shouldComponentUpdate(nextProps, nextState) {
 		if(nextState.canvasWidth !== this.state.canvasWidth || nextState.canvasHeight !== this.state.canvasHeight) {
 			return true;
@@ -185,7 +185,7 @@ class App extends Component {
 
 			switch(evt.key) {
 				case 'ArrowUp':
-				case 'Up': // IE 
+				case 'Up': // IE
 					this.fireLaser('N');
 					break;
 				case 'ArrowDown':
@@ -228,7 +228,7 @@ class App extends Component {
 		const w = ctx.canvas.width;
 		let canvasX = evt.targetTouches[0].pageX - ctx.canvas.offsetLeft;
 		let canvasY = evt.targetTouches[0].pageY - ctx.canvas.offsetTop;
-		
+
 		if (canvasX <= 0 || canvasY < 0 || canvasX > ctx.canvas.width || canvasY > ctx.canvas.height) {
 			// outside the canvas
 			return;
@@ -250,23 +250,23 @@ class App extends Component {
 		ctx.moveTo(0,0);
 		ctx.lineTo(w,h);
 		ctx.stroke();
-		
+
 		ctx.moveTo(w,0);
 		ctx.lineTo(0,h);
 		ctx.stroke();
-		ctx.restore();		
+		ctx.restore();
 		*/
 
 		if (ma > m) {
-			
+
 			if (mb > n) {
 				zone = 'N';
 			} else {
 				zone = 'E';
 			}
-			
+
 		} else {
-			
+
 			if (mb > n) {
 				zone = 'W';
 			} else {
@@ -284,7 +284,7 @@ class App extends Component {
 	}
 
 	_touchEnd(evt) {
-	
+
 		// kickstart iOS sound system (as of iOS9, must be executed inside a tounchend event)
 		this.soundCollection.activateSound();
 
@@ -319,28 +319,28 @@ class App extends Component {
 		ctx.moveTo(0,0);
 		ctx.lineTo(w,h);
 		ctx.stroke();
-		
+
 		ctx.moveTo(w,0);
 		ctx.lineTo(0,h);
 		ctx.stroke();
-		ctx.restore();		
-		*/		
+		ctx.restore();
+		*/
 
 		if (ma > m) {
-			
+
 			if (mb > n) {
 				zone = 'N';
 			} else {
 				zone = 'E';
 			}
-			
+
 		} else {
-			
+
 			if (mb > n) {
 				zone = 'W';
 			} else {
 				zone = 'S';
-			}	
+			}
 		}
 
 		if(this.state.inGame) {
@@ -349,9 +349,9 @@ class App extends Component {
 			if(this.state.readyToPlay)
 				this.startGame();
 		}
-		
+
 	}
-	
+
 	_resize(evt) {
 		this.fitToViewport(this.state.context, 100 /* percentOfViewport */);
 		if(this.state.paused) {
@@ -366,7 +366,7 @@ class App extends Component {
 	fitToViewport(context, percentOfViewport = 100) {
 		let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 		let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-			
+
 		let scaleX = w / this.state.fieldWidth;
 		let scaleY = h / this.state.fieldHeight;
 		let scale = Math.min(scaleX, scaleY) * (percentOfViewport / 100.0);
@@ -374,7 +374,7 @@ class App extends Component {
 		// determine new canvas dimensions:
 		let newCanvasWidth = Math.floor(this.state.fieldWidth * scale);
 		let newCanvasHeight = Math.floor(this.state.fieldHeight * scale);
-		
+
 		// determine offsets for centering the playfield:
 		let offsetTop = 0.5 * (newCanvasHeight - this.state.fieldHeight * scale);
 		let offsetLeft = 0.5 * (newCanvasWidth - this.state.fieldWidth * scale);
@@ -382,12 +382,12 @@ class App extends Component {
 		this.setState({
 			offsetLeft: offsetLeft,
 			offsetTop: offsetTop,
-			canvasWidth: newCanvasWidth,	// width of canvas
-			canvasHeight: newCanvasHeight,	// height of canvas
-			scale: scale,				// scale of game playfield (canvas pixel : game pixel ratio)
+			canvasWidth: newCanvasWidth,
+			canvasHeight: newCanvasHeight,
+			scale: scale, // scale of game playfield (canvas pixel : game pixel ratio)
 		}, () => {
 			context.setTransform(1, 0, 0, 1, 0, 0); // reset whatever previous transforms were in-place
-			context.scale(scale, scale);	// set scale	
+			context.scale(scale, scale);	// set scale
 			context.translate(offsetLeft, offsetTop); // position playfield in the center of canvas
 		});
 	}
@@ -401,7 +401,7 @@ class App extends Component {
 		ctx.fillRect(0,0,this.state.canvasWidth,this.state.canvasHeight);
 		ctx.restore();
 	}
-	
+
 	drawAll() {
 		this.dragonballCollection.drawNext();
 		this.laserBase.drawNext();
@@ -434,7 +434,7 @@ class App extends Component {
 		ctx.fillText(message,(this.state.fieldWidth-textWidth)/2, this.state.fieldHeight / 2);
 		ctx.restore();
 	}
-	
+
 	drawScores() {
 		const ctx = this.state.context;
 		ctx.save();
@@ -468,10 +468,9 @@ class App extends Component {
 			laserSTemp: 0,
 			laserWTemp: 0,
 		});
-		
+
 		this.clearEnemies();
 		this.dragonfly.hidden = true;
-
 		this.loadLevel(this.state.level);
 	}
 
@@ -486,7 +485,7 @@ class App extends Component {
 
 			this.clearPlayField();
 			this.drawMessage('Game Over');
-			
+
 			setTimeout(()=>{this.setState({readyToPlay: true})},3000);
 		},100);
 	}
@@ -494,7 +493,7 @@ class App extends Component {
 	loadLevel(levelNumber) {
 		levelNumber = levelNumber <=0 ? 0 : levelNumber - 1; // note: index 0 == level 1
 		levelNumber = levelNumber > levels.length - 1 ? levels.length - 1 : levelNumber;
-		this.setState(levels[levelNumber], 
+		this.setState(levels[levelNumber],
 			() => {
 				this.dragonfly.selectFlightPathByName(this.state.dragonflyFlightPath);
 				this.weevilCollection.setWeevilMargin(this.state.weevilMargin);
@@ -523,15 +522,15 @@ class App extends Component {
 	}
 
 	// update functions ////
-	
+
 	launchNewSpitballs() {
-		// conditionally launch new spitballs: 
+		// conditionally launch new spitballs:
 		if(this.spitballCollection.spitballs.length < this.state.maxSpitballs) {
 			const weevilPositions = ['N','E','S','W'];
 			let j = this.state.nextWeevilToSpit; // for round-robin;
 			for(let i=0; i<weevilPositions.length; i++) {
 				let direction = weevilPositions[j];
-				this.setState({nextWeevilToSpit: j >= weevilPositions.length ? 0 : j+1}); // round-robin mechanism 
+				this.setState({nextWeevilToSpit: j >= weevilPositions.length ? 0 : j+1}); // round-robin mechanism
 				let weevil=this.weevilCollection.weevils.filter(b => b.direction === direction)[0]; // IE11 compatibility: x.filter(f)[0] subsituted for x.find(f)
 				if(weevil !== undefined && weevil.ready) {
 					this.spitballCollection.launchSpitball(direction);
@@ -542,13 +541,13 @@ class App extends Component {
 
 	launchNewDragonballs() {
 		// conditionally launch new dragonballs:
-		if(!this.dragonfly.hidden && 
+		if(!this.dragonfly.hidden &&
 			this.state.dragonballLaunchCountdown <= 0 &&
 			this.dragonballCollection.dragonballs.length < this.state.maxDragonballs) {
-			
+
 			let x0, y0, r;
 			({x: x0, y: y0, r} = this.dragonfly.getPosition());
-		
+
 			let dx = Math.cos(-r-HALFPI);
 			let dy = Math.sin(-r-HALFPI);
 			let x1 = x0 + dx;
@@ -571,7 +570,7 @@ class App extends Component {
 				// for debugging dragonfly angle:
 				let ctx = this.state.context;
 				ctx.save();
-				ctx.strokeStyle = (discriminant >= 0) ? "#ff0000" : "#00ff00";	
+				ctx.strokeStyle = (discriminant >= 0) ? "#ff0000" : "#00ff00";
 				ctx.beginPath();
 				ctx.arc(centerX, centerY, this.state.dragonflyNoShootRadius, 0, TWOPI);
 				ctx.moveTo(x0, y0);
@@ -587,7 +586,7 @@ class App extends Component {
 	}
 
 	fireLaser(targetDirection) {
-	 
+
 		if(this.state.paused)
 			return;
 
@@ -620,7 +619,7 @@ class App extends Component {
 		let laserHitPosition =0;
 		let spitballHit = false;
 		let spitballHitIndex = 0;
-		
+
 		if(this.dragonballCollection.dragonballs.length !== 0) {
 			for(let i=this.dragonballCollection.dragonballs.length-1; i>=0; i--) {
 				let dragonball = this.dragonballCollection.dragonballs[i];
@@ -630,7 +629,7 @@ class App extends Component {
 						this.dragonballCollection.dragonballs.splice(i,1);
 						this.bumpScore(400);
 				}
-			} 
+			}
 		}
 
 		if(this.spitballCollection.spitballs.length !== 0) { // check for spitball collisions
