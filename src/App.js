@@ -665,7 +665,6 @@ class App extends Component {
 					this.spitballCollection.cancelSpitballs(targetDirection);
 					if(this.weevilCollection.allDead()){
 						this.setState({wavesCleared: this.state.wavesCleared + 1});
-						// console.log('waves cleared:', this.state.wavesCleared);
 						if(	this.state.wavesCleared >= 5){
 							this.setState({wavesCleared: 0});
 							this.dragonfly.hidden = false;
