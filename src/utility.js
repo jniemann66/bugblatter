@@ -38,5 +38,31 @@ function isHeadedTowards(x0,y0,x1,y1,ox,oy) {
 	return (d1Squared < d0Squared);
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// testCircleCircleIntersection() : test whether two circles intersect
+// x0,y0 : center of first circle
+// r0 : radius of first circle
+// x1,y1 : center of second circle
+// r1 : radius of second circle
+//
+// return value:
+//   true: circles intersect
+//   false: circles don't intersect
+//
+
+
+function testCircleCircleIntersection(x0, y0, r0, x1, y1, r1) {
+
+	// calculate distance between centers
+	let dx = x1 - x0;
+	let dy = y1 - y0;
+	let d = Math.sqrt(dx * dx + dy * dy);
+
+	// if sum of radii >= distance between centers, circles intersect (or one of them sits "inside" the other)
+	return ((r1 + r0) >= d);
+
+}
+
+export { testCircleCircleIntersection };
 export { testLineCircleIntersection };
 export { isHeadedTowards };

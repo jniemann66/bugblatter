@@ -72,7 +72,6 @@ class App extends Component {
 	// Lifecycle Events ////
 
 	componentWillMount() {
-
 	}
 
 	componentDidMount() {
