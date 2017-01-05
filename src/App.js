@@ -237,7 +237,6 @@ class App extends Component {
 		let n = h / w;
 		let ma = canvasX / canvasY;
 		let mb = (h - canvasY) / canvasX;
-
 		let zone = '';
 
 		/*
