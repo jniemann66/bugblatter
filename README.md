@@ -2,9 +2,6 @@
 
 A simple, fun arcade-style game (reminiscent of "Space Zap") written in React, using the HTML5 canvas element.
 
-Live demo: [BugBlatter](http://bugblatter.juddn.com/ "Bug Blatter")
-
-
 ## Controls: 
 
 use **arrow keys** (up, down, left, right) to fire lasers, 
